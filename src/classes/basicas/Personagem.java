@@ -1,24 +1,28 @@
 package classes.basicas;
 
+import utils.Chance;
+
 public class Personagem {
-	protected double  	Vida;
-	protected double	VidaAtual;
-	protected int 		Energia;
-	// Colocar EnergiaAtual
-	protected double 	DanoNormal;
-	protected double 	DanoMagia;
-	protected double 	ResistenciaNormal;
-	protected double 	ResistenciaMagia;
-	protected float 	Precisao;
-	protected float 	Esquiva;
-	protected int	 	Nivel;
-	protected int		Experiencia;
+	protected double  		Vida;
+	protected double		VidaAtual;
+	protected int 			Energia;
+	protected int			EnergiaAtual;
+	protected double 		DanoNormal;
+	protected double 		DanoMagia;
+	protected double 		ResistenciaNormal;
+	protected double 		ResistenciaMagia;
+	protected float 		Precisao;
+	protected float 		Esquiva;
+	protected int	 		Nivel;
+	protected int			Experiencia;
+	protected String		Classe;
 	
-	public void Definicao(	double vida,double vidaAtual, int energia, double danoNormal, double danoMagia, 
-						double resistenciaNormal,double resistenciaMagia, float precisao, float esquiva, int nivel, int experiencia) {
+	public void Definicao(	double vida,double vidaAtual, int energia, int energiaAtual,  double danoNormal, double danoMagia, 
+						double resistenciaNormal,double resistenciaMagia, float precisao, float esquiva, int nivel, int experiencia, String classe) {
 		Vida = vida;
 		VidaAtual = vidaAtual;
 		Energia = energia;
+		EnergiaAtual = energiaAtual;
 		DanoNormal = danoNormal;
 		DanoMagia = danoMagia;
 		ResistenciaNormal = resistenciaNormal;
@@ -27,14 +31,16 @@ public class Personagem {
 		Esquiva = esquiva;
 		Nivel = nivel;
 		Experiencia = experiencia;
+		Classe = classe;
 	}
 
 	public void DefinicaoInicial(double danoNormal, double danoMagia, double resistenciaNormal,double resistenciaMagia)	{
 		Vida = 80;
 		VidaAtual = Vida;
 		Energia = 100;
-		DanoNormal = 22 + danoNormal;
-		DanoMagia = 22 + danoMagia;
+		EnergiaAtual = Energia;
+		DanoNormal = 15 + danoNormal;
+		DanoMagia = 15 + danoMagia;
 		ResistenciaNormal = 6 + resistenciaNormal; 
 		ResistenciaMagia = 6 + resistenciaMagia;
 		Precisao = .8f;
@@ -51,18 +57,25 @@ public class Personagem {
 		DefinicaoInicial2();
 	}
 	
+	public void AtacaPersonagem(Personagem inimigo)	{
+		double ataque = DanoNormal - inimigo.getResistenciaNormal()/2;
+		if (Chance.ConsegueAcertar(Precisao))	{
+			if (!Chance.ConsegueEsquivar(inimigo.getEsquiva()))	{
+				inimigo.setVidaAtual(inimigo.getVidaAtual()-ataque);
+			}
+		}
+	}
 
 	@Override
 	public String toString() {
 		return "Personagem [Vida=" + Vida + ", VidaAtual=" + VidaAtual
-				+ ", Energia=" + Energia + ", DanoNormal=" + DanoNormal
-				+ ", DanoMagia=" + DanoMagia + ", ResistenciaNormal="
-				+ ResistenciaNormal + ", ResistenciaMagia=" + ResistenciaMagia
-				+ ", Precisao=" + Precisao + ", Esquiva=" + Esquiva
-				+ ", Nivel=" + Nivel + ", Experiencia=" + Experiencia + "]";
+				+ ", Energia=" + Energia + ", EnergiaAtual=" + EnergiaAtual
+				+ ", DanoNormal=" + DanoNormal + ", DanoMagia=" + DanoMagia
+				+ ", ResistenciaNormal=" + ResistenciaNormal
+				+ ", ResistenciaMagia=" + ResistenciaMagia + ", Precisao="
+				+ Precisao + ", Esquiva=" + Esquiva + ", Nivel=" + Nivel
+				+ ", Experiencia=" + Experiencia + ", Classe=" + Classe + "]";
 	}
-
-	
 
 	public double getVida() {
 		return Vida;
@@ -86,6 +99,14 @@ public class Personagem {
 
 	public void setEnergia(int energia) {
 		Energia = energia;
+	}
+
+	public int getEnergiaAtual() {
+		return EnergiaAtual;
+	}
+
+	public void setEnergiaAtual(int energiaAtual) {
+		EnergiaAtual = energiaAtual;
 	}
 
 	public double getDanoNormal() {

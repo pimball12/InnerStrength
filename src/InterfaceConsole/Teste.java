@@ -1,11 +1,8 @@
 package InterfaceConsole;
 
 import classes.antagonistas.Demonio;
-import classes.antagonistas.MortoVivo;
-import classes.antagonistas.Wookie;
-import classes.basicas.Antagonista;
-import classes.basicas.Personagem;
 import classes.protagonistas.Guerreiro;
+
 
 public class Teste {
 
@@ -18,6 +15,9 @@ public class Teste {
 		System.out.println(ant);
 		System.out.println(gue);
 		ant.AtacaPersonagem(gue);
+		System.out.println(gue);
+		
+		gue.Definicao(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "2");
 		System.out.println(gue);
 		
 	}
