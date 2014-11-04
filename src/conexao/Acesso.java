@@ -15,7 +15,10 @@ public class Acesso {
 	public static Connection conectar()	{
 		try {
 			Class.forName("org.firebirdsql.jdbc.FBDriver");
-			conexao = DriverManager.getConnection(	"jdbc:firebirdsql:localhost/3050:c:\\Users\\Suporte 2\\Neto\\InnerStrength\\InnerStrength\\Data\\DATA.FDB?encoding=UTF8",
+			
+			String path = Acesso.class.getResource("/data/DATA.FDB").toString();
+			path = path.substring(6).replace("/", "\\").replace("%20"," ");
+			conexao = DriverManager.getConnection(	"jdbc:firebirdsql:localhost/3050:"+path+"?encoding=UTF8",
 													"SYSDBA","masterkey");
 		} catch (SQLException e) {
 			System.out.println("Não foi possível conectar ao banco de dados: ");
@@ -37,3 +40,6 @@ public class Acesso {
 	}
 
 }
+
+//conexao = DriverManager.getConnection(	"jdbc:firebirdsql:localhost/3050:c:\\Users\\Suporte 2\\Neto\\InnerStrength\\InnerStrength\\Data\\DATA.FDB?encoding=UTF8",
+//"SYSDBA","masterkey");

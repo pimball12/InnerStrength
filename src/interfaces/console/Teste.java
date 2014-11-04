@@ -1,4 +1,4 @@
-package InterfaceConsole;
+package interfaces.console;
 
 import java.util.List;
 
