@@ -1,24 +1,32 @@
 package InterfaceConsole;
 
-import classes.antagonistas.Demonio;
-import classes.protagonistas.Guerreiro;
+import java.util.List;
+
+import classes.basicas.Personagem;
+import conexao.PersonagemControlador;
 
 
 public class Teste {
 
 	public static void main(String[] args) {
 		
-		Demonio ant = new Demonio();
-		Guerreiro gue = new Guerreiro();
-		ant.CriarPersonagem(2.5, 2.5, 2.5, 2.5);
-		gue.CriarPersonagem(2.5, 2.5, 2.5, 2.5);
-		System.out.println(ant);
-		System.out.println(gue);
-		ant.AtacaPersonagem(gue);
-		System.out.println(gue);
+//		Demonio ant = new Demonio();
+//		Guerreiro gue = new Guerreiro();
+//		ant.CriarPersonagem(2.5, 2.5, 2.5, 2.5,"Vermelho");
+//		gue.CriarPersonagem(2.5, 2.5, 2.5, 2.5,"Azul");
+//		List<Personagem> lista = new ArrayList<Personagem>();
+//		lista.add(gue);
+//		lista.add(ant);
 		
-		gue.Definicao(2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "2");
-		System.out.println(gue);
+		List<Personagem> lista = PersonagemControlador.ListaPersonagens("EQUIPE","Azul");
+		for (Personagem personagem : lista) {
+			System.out.println(personagem.toString());
+		}
 		
+		lista.get(0).setVida(100);
+		PersonagemControlador.AtualizaPersonagens(lista);
+		lista.get(0).setVida(80);
+		PersonagemControlador.AtualizaPersonagem(lista.get(0));
 	}
+	
 }

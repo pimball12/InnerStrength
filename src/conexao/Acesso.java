@@ -28,7 +28,7 @@ public class Acesso {
 		return conexao;
 	}
 	
-	public void Desconectar()	{
+	public static void Desconectar()	{
 		try {
 			conexao.close();
 		} catch (SQLException e) {

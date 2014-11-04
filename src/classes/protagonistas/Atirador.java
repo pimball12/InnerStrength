@@ -4,10 +4,13 @@ import classes.basicas.Protagonista;
 
 public class Atirador extends Protagonista{
 	
-	public void DefinicaoInicial2()	{
+	public Atirador()	{
 		Classe = "Atirador";
+	}
+	
+	public void DefinicaoInicial2()	{
 		Esquiva+=0.03;
-		Precisao+=0.5;
+		Precisao+=0.05;
 		Energia+=5;
 		DanoNormal+=2;
 	}

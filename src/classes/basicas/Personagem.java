@@ -3,6 +3,7 @@ package classes.basicas;
 import utils.Chance;
 
 public class Personagem {
+	protected int 			Id;
 	protected double  		Vida;
 	protected double		VidaAtual;
 	protected int 			Energia;
@@ -16,25 +17,9 @@ public class Personagem {
 	protected int	 		Nivel;
 	protected int			Experiencia;
 	protected String		Classe;
-	
-	public void Definicao(	double vida,double vidaAtual, int energia, int energiaAtual,  double danoNormal, double danoMagia, 
-						double resistenciaNormal,double resistenciaMagia, float precisao, float esquiva, int nivel, int experiencia, String classe) {
-		Vida = vida;
-		VidaAtual = vidaAtual;
-		Energia = energia;
-		EnergiaAtual = energiaAtual;
-		DanoNormal = danoNormal;
-		DanoMagia = danoMagia;
-		ResistenciaNormal = resistenciaNormal;
-		ResistenciaMagia = resistenciaMagia;
-		Precisao = precisao;
-		Esquiva = esquiva;
-		Nivel = nivel;
-		Experiencia = experiencia;
-		Classe = classe;
-	}
+	protected String		Equipe;
 
-	public void DefinicaoInicial(double danoNormal, double danoMagia, double resistenciaNormal,double resistenciaMagia)	{
+	public void DefinicaoInicial(double danoNormal, double danoMagia, double resistenciaNormal,double resistenciaMagia, String equipe)	{
 		Vida = 80;
 		VidaAtual = Vida;
 		Energia = 100;
@@ -47,12 +32,13 @@ public class Personagem {
 		Esquiva = .05f;
 		Nivel = 1;
 		Experiencia = 0;
+		Equipe = equipe;
 	}
 	public void DefinicaoInicial1(){}
 	public void DefinicaoInicial2(){}
 	
-	public void CriarPersonagem(double danoNormal, double danoMagia, double resistenciaNormal,double resistenciaMagia)	{
-		DefinicaoInicial(danoNormal, danoMagia, resistenciaNormal,resistenciaMagia);
+	public void CriarPersonagem(double danoNormal, double danoMagia, double resistenciaNormal,double resistenciaMagia, String equipe)	{
+		DefinicaoInicial(danoNormal, danoMagia, resistenciaNormal,resistenciaMagia, equipe);
 		DefinicaoInicial1();
 		DefinicaoInicial2();
 	}
@@ -68,15 +54,22 @@ public class Personagem {
 
 	@Override
 	public String toString() {
-		return "Personagem [Vida=" + Vida + ", VidaAtual=" + VidaAtual
-				+ ", Energia=" + Energia + ", EnergiaAtual=" + EnergiaAtual
-				+ ", DanoNormal=" + DanoNormal + ", DanoMagia=" + DanoMagia
-				+ ", ResistenciaNormal=" + ResistenciaNormal
+		return "Personagem [Id=" + Id + ", Vida=" + Vida + ", VidaAtual="
+				+ VidaAtual + ", Energia=" + Energia + ", EnergiaAtual="
+				+ EnergiaAtual + ", DanoNormal=" + DanoNormal + ", DanoMagia="
+				+ DanoMagia + ", ResistenciaNormal=" + ResistenciaNormal
 				+ ", ResistenciaMagia=" + ResistenciaMagia + ", Precisao="
 				+ Precisao + ", Esquiva=" + Esquiva + ", Nivel=" + Nivel
-				+ ", Experiencia=" + Experiencia + ", Classe=" + Classe + "]";
+				+ ", Experiencia=" + Experiencia + ", Classe=" + Classe
+				+ ", Equipe=" + Equipe + "]";
 	}
-
+	
+	public int getId() {
+		return Id;
+	}
+	public void setId(int id) {
+		Id = id;
+	}
 	public double getVida() {
 		return Vida;
 	}
@@ -171,6 +164,22 @@ public class Personagem {
 
 	public void setExperiencia(int experiencia) {
 		Experiencia = experiencia;
+	}
+
+	public String getClasse() {
+		return Classe;
+	}
+
+	public void setClasse(String classe) {
+		Classe = classe;
+	}
+
+	public String getEquipe() {
+		return Equipe;
+	}
+
+	public void setEquipe(String equipe) {
+		Equipe = equipe;
 	}
 
 }
