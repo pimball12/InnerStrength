@@ -17,7 +17,7 @@ public class Acesso {
 			Class.forName("org.firebirdsql.jdbc.FBDriver");
 			
 			String path = Acesso.class.getResource("/data/DATA.FDB").toString();
-			path = path.substring(6).replace("/", "\\").replace("%20"," ");
+			path = path.substring(6).replace("/", "\\\\").replace("%20"," ");
 			conexao = DriverManager.getConnection(	"jdbc:firebirdsql:localhost/3050:"+path+"?encoding=UTF8",
 													"SYSDBA","masterkey");
 		} catch (SQLException e) {

@@ -18,6 +18,7 @@ public class Personagem {
 	protected int			Experiencia;
 	protected String		Classe;
 	protected String		Equipe;
+	protected String 		Time;
 
 	public void DefinicaoInicial(double danoNormal, double danoMagia, double resistenciaNormal,double resistenciaMagia, String equipe)	{
 		Vida = 80;
@@ -180,6 +181,13 @@ public class Personagem {
 
 	public void setEquipe(String equipe) {
 		Equipe = equipe;
+	}
+	
+	public String getTime() {
+		return Time;
+	}
+	public void setTime(String time) {
+		Time = time;
 	}
 
 }

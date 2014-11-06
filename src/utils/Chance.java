@@ -19,5 +19,10 @@ public class Chance {
 		float resultado = random.nextFloat() * (maximo - minimo) + minimo; 
 		return precisao < resultado ? false : true;
 	}
+	
+	public static boolean BoleanoAleatorio()	{
+		boolean resultado = random.nextBoolean();
+		return resultado;
+	}
 
 }

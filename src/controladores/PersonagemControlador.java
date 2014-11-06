@@ -1,4 +1,4 @@
-package conexao;
+package controladores;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import conexao.Acesso;
 import utils.PersonagemUtils;
 import classes.basicas.Personagem;
 
