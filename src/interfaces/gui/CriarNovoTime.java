@@ -1,26 +1,23 @@
 package interfaces.gui;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 
 import utils.CriarNovoTimeUtils;
-
-import java.awt.SystemColor;
-import java.awt.Color;
 
 public class CriarNovoTime extends JDialog {
 
@@ -34,6 +31,7 @@ public class CriarNovoTime extends JDialog {
 	private JTextField textFieldDanoMagico2;
 	private JTextField textFieldResistenciaNormal2;
 	private JTextField textFieldResistenciaMagica2;
+	private JComboBox<String[]> comboBoxPer1;
 
 	/**
 	 * Launch the application.
@@ -59,9 +57,8 @@ public class CriarNovoTime extends JDialog {
 		String[] personagensAntagonistas  = {"Demonio", "MortoVivo", "Wookie"};
 		
 		setModal(true);
-		setAlwaysOnTop(true);
 		setTitle("Criar Novo Time");
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 477);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -86,15 +83,41 @@ public class CriarNovoTime extends JDialog {
 			lblPersonagemAntagonista.setBounds(218, 39, 206, 14);
 			contentPane.add(lblPersonagemAntagonista);
 		
-		final JComboBox<String[]> comboBoxPer1 = new JComboBox(personagensProtagonistas);
-		comboBoxPer1.setToolTipText("Selecionar");
+		JScrollPane scrollPanePer1 = new JScrollPane();
+			scrollPanePer1.setBounds(10, 269, 198, 102);
+			contentPane.add(scrollPanePer1);
+			
+			final JTextPane txtpnPer1 = new JTextPane();
+				scrollPanePer1.setViewportView(txtpnPer1);
+					txtpnPer1.setEditable(false);
+		
+		JScrollPane scrollPanePer2 = new JScrollPane();
+			scrollPanePer2.setBounds(218, 269, 206, 102);
+			contentPane.add(scrollPanePer2);
+		
+			final JTextPane txtpnPer2 = new JTextPane();
+				scrollPanePer2.setViewportView(txtpnPer2);
+					txtpnPer2.setEditable(false);
+		
+		final JComboBox<String> comboBoxPer1 = new JComboBox(personagensProtagonistas);
+			comboBoxPer1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CriarNovoTimeUtils.textoSelecao(comboBoxPer1.getSelectedItem(), txtpnPer1);
+				}
+			});
+			comboBoxPer1.setToolTipText("Selecionar");
 			lblPersonagemProtagonista.setLabelFor(comboBoxPer1);
 			comboBoxPer1.setBounds(10, 61, 198, 20);
 			comboBoxPer1.setSelectedItem(null);
 			contentPane.add(comboBoxPer1);
 		
-		final JComboBox<String[]> comboBoxPer2 = new JComboBox(personagensAntagonistas);
-		comboBoxPer2.setToolTipText("Selecionar");
+		final JComboBox<String> comboBoxPer2 = new JComboBox(personagensAntagonistas);
+			comboBoxPer2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					CriarNovoTimeUtils.textoSelecao(comboBoxPer2.getSelectedItem(), txtpnPer2);
+				}
+			});
+			comboBoxPer2.setToolTipText("Selecionar");
 			lblPersonagemAntagonista.setLabelFor(comboBoxPer2);
 			comboBoxPer2.setBounds(218, 61, 206, 20);
 			comboBoxPer2.setSelectedItem(null);
@@ -192,13 +215,16 @@ public class CriarNovoTime extends JDialog {
 			btnCriar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					try	{
-					CriarNovoTimeUtils.CriaPersonagem(	(String)comboBoxPer1.getSelectedItem(), textFieldNomeDoTime.getText(), 
-														Double.parseDouble(textFieldDanoNormal1.getText()) , Double.parseDouble(textFieldDanoMagico1.getText()),
-														Double.parseDouble(textFieldResistenciaNormal1.getText()), Double.parseDouble(textFieldResistenciaMagica1.getText()));
-					CriarNovoTimeUtils.CriaPersonagem(	(String)comboBoxPer2.getSelectedItem(), textFieldNomeDoTime.getText(), 
-														Double.parseDouble(textFieldDanoNormal2.getText()) , Double.parseDouble(textFieldDanoMagico2.getText()),
-														Double.parseDouble(textFieldResistenciaNormal2.getText()), Double.parseDouble(textFieldResistenciaMagica2.getText()));
-					dispose();
+						if (CriarNovoTimeUtils.CriaTime( 
+							(String)comboBoxPer1.getSelectedItem(), textFieldNomeDoTime.getText(), 
+							Double.parseDouble(textFieldDanoNormal1.getText()) , Double.parseDouble(textFieldDanoMagico1.getText()),
+							Double.parseDouble(textFieldResistenciaNormal1.getText()), Double.parseDouble(textFieldResistenciaMagica1.getText()),
+							(String)comboBoxPer2.getSelectedItem(), textFieldNomeDoTime.getText(), 
+							Double.parseDouble(textFieldDanoNormal2.getText()) , Double.parseDouble(textFieldDanoMagico2.getText()),
+							Double.parseDouble(textFieldResistenciaNormal2.getText()), Double.parseDouble(textFieldResistenciaMagica2.getText()) ))	{
+								limparCampos();
+								dispose();
+						}
 					} catch(Exception ex)	{
 						JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
 					}
@@ -210,28 +236,31 @@ public class CriarNovoTime extends JDialog {
 		JButton btnCancelar = new JButton("Cancelar");
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					limparCampos();
 					dispose();
 				}
 			});
 			btnCancelar.setBounds(218, 382, 206, 46);
 			contentPane.add(btnCancelar);
-			
-			JTextPane txtpnPer1 = new JTextPane();
-			txtpnPer1.setEditable(false);
-			txtpnPer1.setBounds(10, 269, 198, 102);
-			contentPane.add(txtpnPer1);
-			
-			JTextPane txtpnPer2 = new JTextPane();
-			txtpnPer2.setEditable(false);
-			txtpnPer2.setBounds(218, 269, 206, 102);
-			contentPane.add(txtpnPer2);
-			
-			JTextPane txtpnEscolhaOsAtributos = new JTextPane();
+		
+		JTextPane txtpnEscolhaOsAtributos = new JTextPane();
 			txtpnEscolhaOsAtributos.setBackground(Color.WHITE);
 			txtpnEscolhaOsAtributos.setEditable(false);
-			txtpnEscolhaOsAtributos.setText("Escolha os atributos para seus personagens, lembrando que a soma dos atributos n\u00E3o pode ultrapassar 12 pontos:");
+			txtpnEscolhaOsAtributos.setText("Escolha os atributos para seus personagens.\r\nVoc\u00EA tem at\u00E9 12 pontos para distribuir entre cada personagem.");
 			txtpnEscolhaOsAtributos.setBounds(10, 92, 414, 38);
 			txtpnEscolhaOsAtributos.setOpaque(false);
 			contentPane.add(txtpnEscolhaOsAtributos);
+	}
+	
+	public void limparCampos()	{
+		textFieldNomeDoTime.setText("");
+		textFieldDanoMagico1.setText("");
+		textFieldDanoMagico2.setText("");
+		textFieldDanoNormal1.setText("");
+		textFieldDanoNormal2.setText("");
+		textFieldResistenciaMagica1.setText("");
+		textFieldResistenciaMagica2.setText("");
+		textFieldResistenciaNormal1.setText("");
+		textFieldResistenciaNormal2.setText("");
 	}
 }

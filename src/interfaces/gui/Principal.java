@@ -14,6 +14,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import utils.PrincipalUtils;
 
@@ -38,6 +39,7 @@ public class Principal {
 				try {
 					Principal window = new Principal();
 					window.frmInnerStrenght.setVisible(true);
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

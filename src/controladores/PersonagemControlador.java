@@ -14,14 +14,14 @@ public class PersonagemControlador {
 
 	static PreparedStatement declaracao;
 	static ResultSet resultado;
-	static String criapersonagem = "INSERT INTO PERSONAGEM (VIDA, VIDAATUAL, ENERGIA, ENERGIAATUAL, DANONORMAL, DANOMAGIA, RESISTENCIANORMAL,"+
-							" RESISTENCIAMAGIA, PRECISAO, ESQUIVA, NIVEL, EXPERIENCIA, CLASSE, EQUIPE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	static String criapersonagem 		= 	"INSERT INTO PERSONAGEM (VIDA, VIDAATUAL, ENERGIA, ENERGIAATUAL, DANONORMAL, DANOMAGIA, RESISTENCIANORMAL,"+
+											" RESISTENCIAMAGIA, PRECISAO, ESQUIVA, NIVEL, EXPERIENCIA, CLASSE, EQUIPE) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	
-	static String listapersonagens = "SELECT * FROM PERSONAGEM";
+	static String listapersonagens		= 	"SELECT * FROM PERSONAGEM";
 	
-	static String atualizapersonagem = "UPDATE PERSONAGEM SET VIDA = ?, VIDAATUAL = ?, ENERGIA = ?, ENERGIAATUAL = ?, DANONORMAL = ?, DANOMAGIA = ?, "+
-										"RESISTENCIANORMAL = ?, RESISTENCIAMAGIA = ?, PRECISAO = ?, ESQUIVA = ?, NIVEL = ?, EXPERIENCIA = ?, CLASSE = ?, EQUIPE = ? "+
-										"WHERE PERSONAGEMID = ?";
+	static String atualizapersonagem 	= 	"UPDATE PERSONAGEM SET VIDA = ?, VIDAATUAL = ?, ENERGIA = ?, ENERGIAATUAL = ?, DANONORMAL = ?, DANOMAGIA = ?, "+
+											"RESISTENCIANORMAL = ?, RESISTENCIAMAGIA = ?, PRECISAO = ?, ESQUIVA = ?, NIVEL = ?, EXPERIENCIA = ?, CLASSE = ?, EQUIPE = ? "+
+											"WHERE PERSONAGEMID = ?";
 	
 	public PersonagemControlador() {
 
@@ -49,6 +49,23 @@ public class PersonagemControlador {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static List<String> ListaColuna(String parametro)	{
+		List<String> lista = new ArrayList<String>();
+		try	{
+			String listacoluna = "SELECT "+parametro+" FROM PERSONAGEM";
+			declaracao = Acesso.conectar().prepareStatement(listacoluna);
+			resultado = declaracao.executeQuery();
+			while (resultado.next())	{
+				lista.add(resultado.getString(parametro));
+			}
+			Acesso.Desconectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
 	}
 	
 	public static List<Personagem> ListaPersonagens(String parametro, String pesquisa)	{

@@ -10,7 +10,7 @@ public class Guerreiro extends Protagonista {
 	
 	public void DefinicaoInicial2()	{
 		DanoNormal += 4;
-		DanoMagia += 4;
+		DanoMagia -= 4;
 		ResistenciaNormal += 3;
 		ResistenciaMagia -=4;
 		Esquiva -= 0.02;
