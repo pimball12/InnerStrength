@@ -3,6 +3,7 @@ package interfaces.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -12,16 +13,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
+
+import utils.ComecarUtils;
+import controladores.PersonagemControlador;
 
 public class Comecar extends JDialog {
 
 	private JPanel contentPane;
 	private JTable tableTime1;
 	private JTable tableTime2;
-
+	List<String> listaTimes = PersonagemControlador.ListaColunaDistinta("EQUIPE");
+	
 	/**
 	 * Launch the application.
 	 */
@@ -55,18 +58,30 @@ public class Comecar extends JDialog {
 			lblEscolhaOTime1.setBounds(10, 11, 96, 14);
 			contentPane.add(lblEscolhaOTime1);
 		
-		JComboBox comboBoxTime1 = new JComboBox();
-		lblEscolhaOTime1.setLabelFor(comboBoxTime1);
+		final JComboBox comboBoxTime1 = new JComboBox(listaTimes.toArray());
+			comboBoxTime1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ComecarUtils.preencherTabela(tableTime1, (String)comboBoxTime1.getSelectedItem());
+				}
+			});
+			lblEscolhaOTime1.setLabelFor(comboBoxTime1);
 			comboBoxTime1.setBounds(118, 8, 306, 20);
+			comboBoxTime1.setSelectedItem(null);
 			contentPane.add(comboBoxTime1);
 		
 		JLabel lblEscolhaOTime2 = new JLabel("Escolha o time 2:");
 			lblEscolhaOTime2.setBounds(10, 36, 96, 14);
 			contentPane.add(lblEscolhaOTime2);
 		
-		JComboBox comboBoxTime2 = new JComboBox();
-		lblEscolhaOTime2.setLabelFor(comboBoxTime2);
+		final JComboBox comboBoxTime2 = new JComboBox(listaTimes.toArray());
+			comboBoxTime2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ComecarUtils.preencherTabela(tableTime2, (String)comboBoxTime2.getSelectedItem());
+				}
+			});
+			lblEscolhaOTime2.setLabelFor(comboBoxTime2);
 			comboBoxTime2.setBounds(118, 33, 306, 20);
+			comboBoxTime2.setSelectedItem(null);
 			contentPane.add(comboBoxTime2);
 		
 		JButton btnComecarLuta = new JButton("Come\u00E7ar Luta");
@@ -104,13 +119,6 @@ public class Comecar extends JDialog {
 			contentPane.add(scrollPaneTime1);
 		
 			tableTime1 = new JTable();
-			tableTime1.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Personagem", "N\u00EDvel"
-				}
-			));
 			lblTime1.setLabelFor(tableTime1);
 				scrollPaneTime1.setViewportView(tableTime1);
 		
@@ -119,13 +127,6 @@ public class Comecar extends JDialog {
 			contentPane.add(scrollPaneTime2);
 			
 			tableTime2 = new JTable();
-			tableTime2.setModel(new DefaultTableModel(
-				new Object[][] {
-				},
-				new String[] {
-					"Personagem", "N\u00EDvel"
-				}
-			));
 			lblTime2.setLabelFor(tableTime2);
 				scrollPaneTime2.setViewportView(tableTime2);
 	}

@@ -68,9 +68,26 @@ public class PersonagemControlador {
 		return lista;
 	}
 	
+	public static List<String> ListaColunaDistinta(String parametro)	{
+		List<String> lista = new ArrayList<String>();
+		try	{
+			String listacoluna = "SELECT DISTINCT "+parametro+" FROM PERSONAGEM";
+			declaracao = Acesso.conectar().prepareStatement(listacoluna);
+			resultado = declaracao.executeQuery();
+			while (resultado.next())	{
+				lista.add(resultado.getString(parametro));
+			}
+			Acesso.Desconectar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return lista;
+	}
+	
 	public static List<Personagem> ListaPersonagens(String parametro, String pesquisa)	{
 		List<Personagem> lista = new ArrayList<Personagem>();
-		listapersonagens += " WHERE "+parametro+" = ?";
+		listapersonagens = "SELECT * FROM PERSONAGEM WHERE "+parametro+" = ?";
 		try {
 			declaracao = Acesso.conectar().prepareStatement(listapersonagens);
 			declaracao.setString(1, pesquisa);

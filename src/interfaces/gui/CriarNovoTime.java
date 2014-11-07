@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import utils.CriarNovoTimeUtils;
@@ -55,6 +56,7 @@ public class CriarNovoTime extends JDialog {
 	public CriarNovoTime() {
 		String[] personagensProtagonistas = {"Guerreiro", "Atirador", "Conjurador"};
 		String[] personagensAntagonistas  = {"Demonio", "MortoVivo", "Wookie"};
+		SwingUtilities.getWindowAncestor(this).dispose();
 		
 		setModal(true);
 		setTitle("Criar Novo Time");
@@ -224,6 +226,7 @@ public class CriarNovoTime extends JDialog {
 							Double.parseDouble(textFieldResistenciaNormal2.getText()), Double.parseDouble(textFieldResistenciaMagica2.getText()) ))	{
 								limparCampos();
 								dispose();
+								mostrarComecar();
 						}
 					} catch(Exception ex)	{
 						JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
@@ -238,6 +241,7 @@ public class CriarNovoTime extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					limparCampos();
 					dispose();
+					mostrarComecar();
 				}
 			});
 			btnCancelar.setBounds(218, 382, 206, 46);
@@ -250,6 +254,17 @@ public class CriarNovoTime extends JDialog {
 			txtpnEscolhaOsAtributos.setBounds(10, 92, 414, 38);
 			txtpnEscolhaOsAtributos.setOpaque(false);
 			contentPane.add(txtpnEscolhaOsAtributos);
+	}
+	
+	Comecar comecar;
+	
+	private void mostrarComecar()	{
+		if (comecar == null)	{
+			comecar = new Comecar();
+			comecar.setVisible(true);
+		} else {
+			comecar.setVisible(true);
+		}
 	}
 	
 	public void limparCampos()	{
