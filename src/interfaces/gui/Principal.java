@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -17,6 +19,8 @@ import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
 import utils.PrincipalUtils;
+import utils.Rodada;
+import javax.swing.ImageIcon;
 
 public class Principal {
 
@@ -29,7 +33,8 @@ public class Principal {
 	private JTable InfoTime2Per2;
 	private JScrollPane scrollPaneTime2Per2;
 	private JTable tblInformacoes;
-
+	private Comecar comecar = new Comecar();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -99,7 +104,7 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(panelTime1Per1);
 			panelTime1Per1.setLayout(null);
 		
-			JLabel FotoTime1Per1 = new JLabel((""));
+			final JLabel FotoTime1Per1 = new JLabel((""));
 				FotoTime1Per1.setBounds(0, 0, 127, 154);
 				panelTime1Per1.add(FotoTime1Per1);
 				FotoTime1Per1.setLabelFor(InfoTime1Per1);
@@ -109,7 +114,7 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(panelTime1Per2);
 			panelTime1Per2.setLayout(null);
 		
-			JLabel FotoTime1Per2 = new JLabel("");
+			final JLabel FotoTime1Per2 = new JLabel("");
 				FotoTime1Per2.setBounds(0, 0, 127, 154);
 				panelTime1Per2.add(FotoTime1Per2);
 				FotoTime1Per2.setLabelFor(InfoTime1Per2);
@@ -119,7 +124,7 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(panelTime2Per1);
 			panelTime2Per1.setLayout(null);
 		
-			JLabel FotoTime2Per1 = new JLabel("");
+			final JLabel FotoTime2Per1 = new JLabel("");
 				FotoTime2Per1.setBounds(0, 0, 127, 154);
 				panelTime2Per1.add(FotoTime2Per1);
 				FotoTime2Per1.setLabelFor(InfoTime2Per1);
@@ -129,15 +134,15 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(panelTime2Per2);
 			panelTime2Per2.setLayout(null);
 			
-			JLabel FotoTime2Per2 = new JLabel("");
+			final JLabel FotoTime2Per2 = new JLabel("");
 				FotoTime2Per2.setBounds(0, 0, 127, 154);
 				panelTime2Per2.add(FotoTime2Per2);
 				FotoTime2Per2.setLabelFor(InfoTime2Per2);
 		
-		ButtonGroup RadioTime1 = new ButtonGroup();
+		final ButtonGroup RadioTime1 = new ButtonGroup();
 		ButtonGroup RadioTime2 = new ButtonGroup();
 				
-		JRadioButton radioTime1Per1 = new JRadioButton("");
+		final JRadioButton radioTime1Per1 = new JRadioButton("");
 			radioTime1Per1.setBounds(278, 75, 21, 23);
 			frmInnerStrenght.getContentPane().add(radioTime1Per1);
 			RadioTime1.add(radioTime1Per1);
@@ -196,21 +201,24 @@ public class Principal {
 		JButton btnSair = new JButton("Sair");
 			btnSair.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					PrincipalUtils.Sair();
+					System.exit(0);
 				}
 			});
 			btnSair.setBounds(493, 403, 225, 48);
 			frmInnerStrenght.getContentPane().add(btnSair);
+		
+		comecar.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				PrincipalUtils.AdicionaFotos(Rodada.getProtagonista1(), Rodada.getProtagonista2(), Rodada.getAntagonista1(), Rodada.getAntagonista2(),
+											 FotoTime1Per1, FotoTime2Per1, FotoTime1Per2, FotoTime2Per2);
+			}
+		});
+		
 	}
-	
-	Comecar comecar;
 	
 	private void mostrarComecar()	{
-		if (comecar == null)	{
-			comecar = new Comecar();
-			comecar.setVisible(true);
-		} else {
-			comecar.setVisible(true);
-		}
+		comecar.setVisible(true);
 	}
+
 }

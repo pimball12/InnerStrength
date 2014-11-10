@@ -2,25 +2,24 @@ package interfaces.gui;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 
 import utils.CriarNovoTimeUtils;
 
-public class CriarNovoTime extends JDialog {
+public class CriarNovoTime extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textFieldNomeDoTime;
@@ -33,7 +32,7 @@ public class CriarNovoTime extends JDialog {
 	private JTextField textFieldResistenciaNormal2;
 	private JTextField textFieldResistenciaMagica2;
 	private JComboBox<String[]> comboBoxPer1;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -53,12 +52,12 @@ public class CriarNovoTime extends JDialog {
 	/**
 	 * Create the frame.
 	 */
+	
 	public CriarNovoTime() {
 		String[] personagensProtagonistas = {"Guerreiro", "Atirador", "Conjurador"};
 		String[] personagensAntagonistas  = {"Demonio", "MortoVivo", "Wookie"};
-		SwingUtilities.getWindowAncestor(this).dispose();
 		
-		setModal(true);
+		//setModal(true);
 		setTitle("Criar Novo Time");
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 477);
@@ -226,7 +225,6 @@ public class CriarNovoTime extends JDialog {
 							Double.parseDouble(textFieldResistenciaNormal2.getText()), Double.parseDouble(textFieldResistenciaMagica2.getText()) ))	{
 								limparCampos();
 								dispose();
-								mostrarComecar();
 						}
 					} catch(Exception ex)	{
 						JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
@@ -241,7 +239,6 @@ public class CriarNovoTime extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					limparCampos();
 					dispose();
-					mostrarComecar();
 				}
 			});
 			btnCancelar.setBounds(218, 382, 206, 46);
@@ -254,17 +251,6 @@ public class CriarNovoTime extends JDialog {
 			txtpnEscolhaOsAtributos.setBounds(10, 92, 414, 38);
 			txtpnEscolhaOsAtributos.setOpaque(false);
 			contentPane.add(txtpnEscolhaOsAtributos);
-	}
-	
-	Comecar comecar;
-	
-	private void mostrarComecar()	{
-		if (comecar == null)	{
-			comecar = new Comecar();
-			comecar.setVisible(true);
-		} else {
-			comecar.setVisible(true);
-		}
 	}
 	
 	public void limparCampos()	{

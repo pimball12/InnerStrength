@@ -1,5 +1,6 @@
 package interfaces.gui;
 
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,7 +8,6 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,14 +16,19 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import utils.ComecarUtils;
+import utils.Rodada;
 import controladores.PersonagemControlador;
 
-public class Comecar extends JDialog {
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class Comecar extends JFrame {
 
 	private JPanel contentPane;
 	private JTable tableTime1;
 	private JTable tableTime2;
 	List<String> listaTimes = PersonagemControlador.ListaColunaDistinta("EQUIPE");
+	private CriarNovoTime criarNovoTime = new CriarNovoTime();
 	
 	/**
 	 * Launch the application.
@@ -45,7 +50,7 @@ public class Comecar extends JDialog {
 	 * Create the frame.
 	 */
 	public Comecar() {
-		setModal(true);
+		//setModal(true);
 		setTitle("Escolha de Times");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -85,6 +90,14 @@ public class Comecar extends JDialog {
 			contentPane.add(comboBoxTime2);
 		
 		JButton btnComecarLuta = new JButton("Come\u00E7ar Luta");
+		btnComecarLuta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (ComecarUtils.DefinirTimes((String)comboBoxTime1.getSelectedItem(), (String)comboBoxTime2.getSelectedItem()))	{
+					System.out.println(Rodada.ShowRodada());
+					dispose();
+				}
+			}
+		});
 			btnComecarLuta.setBounds(10, 61, 133, 46);
 			contentPane.add(btnComecarLuta);
 			
@@ -129,16 +142,31 @@ public class Comecar extends JDialog {
 			tableTime2 = new JTable();
 			lblTime2.setLabelFor(tableTime2);
 				scrollPaneTime2.setViewportView(tableTime2);
+				
+		criarNovoTime.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				repopularComboboxes(comboBoxTime1, comboBoxTime2);
+			}
+		});
 	}
-	
-	CriarNovoTime criarNovoTime;
 	
 	private void mostrarCriarNovoTime()	{
-		if (criarNovoTime == null)	{
-			criarNovoTime = new CriarNovoTime();
-			criarNovoTime.setVisible(true);
-		} else {
-			criarNovoTime.setVisible(true);
-		}
+		criarNovoTime.setVisible(true);
 	}
+	
+	private void repopularComboboxes(JComboBox comboBoxTime1, JComboBox comboBoxTime2)	{
+		List<String> listaTimes = PersonagemControlador.ListaColunaDistinta("EQUIPE");
+		comboBoxTime1.removeAllItems();
+		comboBoxTime2.removeAllItems();
+		for (String time : listaTimes) {
+			comboBoxTime1.addItem(time);
+		}
+		for (String time : listaTimes) {
+			comboBoxTime2.addItem(time);
+		}
+		comboBoxTime1.setSelectedItem(null);
+		comboBoxTime2.setSelectedItem(null);
+	}
+	
 }

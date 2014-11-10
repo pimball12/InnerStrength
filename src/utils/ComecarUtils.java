@@ -2,6 +2,8 @@ package utils;
 
 import java.util.List;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -29,4 +31,37 @@ public class ComecarUtils {
 			tabela.setModel(modeloComboBoxTime);
 		}
 	}
+	
+	public static boolean DefinirTimes(String time1, String time2)	{
+		List<Personagem> equipe1 = PersonagemControlador.ListaPersonagens("EQUIPE", time1);
+		List<Personagem> equipe2 = PersonagemControlador.ListaPersonagens("EQUIPE", time2);
+		
+		if (!equipe1.isEmpty() && !equipe2.isEmpty() && time1 != time2)	{
+			for (Personagem personagem : equipe1) {
+				if (personagem.getClasse() == "Conjurador" || personagem.getClasse() == "Atirador" || personagem.getClasse() == "Guerreiro")	{
+					Rodada.setProtagonista1(personagem);
+				}
+				else if (personagem.getClasse() == "Demonio" || personagem.getClasse() == "Wookie" || personagem.getClasse() == "MortoVivo")	{
+					Rodada.setAntagonista1(personagem);
+				}
+			}
+			
+			for (Personagem personagem : equipe2) {
+				if (personagem.getClasse() == "Conjurador" || personagem.getClasse() == "Atirador" || personagem.getClasse() == "Guerreiro")	{
+					Rodada.setProtagonista2(personagem);
+				}
+				else if (personagem.getClasse() == "Demonio" || personagem.getClasse() == "Wookie" || personagem.getClasse() == "MortoVivo")	{
+					Rodada.setAntagonista2(personagem);
+				}
+			}
+			return true;
+		} else if (time1 == time2) {
+			JOptionPane.showMessageDialog(null, "Escolha dois times diferentes!");
+			return false;
+		} else {
+			JOptionPane.showMessageDialog(null, "Selecione os times!");
+			return false;
+		}
+	}
+	
 }

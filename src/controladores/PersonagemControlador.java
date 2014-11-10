@@ -87,7 +87,7 @@ public class PersonagemControlador {
 	
 	public static List<Personagem> ListaPersonagens(String parametro, String pesquisa)	{
 		List<Personagem> lista = new ArrayList<Personagem>();
-		listapersonagens = "SELECT * FROM PERSONAGEM WHERE "+parametro+" = ?";
+		String listapersonagens = "SELECT * FROM PERSONAGEM WHERE "+parametro+" = ?";
 		try {
 			declaracao = Acesso.conectar().prepareStatement(listapersonagens);
 			declaracao.setString(1, pesquisa);
@@ -97,18 +97,18 @@ public class PersonagemControlador {
 				personagem = PersonagemUtils.EscolheClasse(resultado.getString("CLASSE"));
 				personagem.setVida				(resultado.getDouble("VIDA"));
 				personagem.setVidaAtual			(resultado.getDouble("VIDAATUAL"));
-				personagem.setEnergia			(resultado.getInt("ENERGIA"));
-				personagem.setEnergiaAtual		(resultado.getInt("ENERGIAATUAL"));
+				personagem.setEnergia			(resultado.getInt	("ENERGIA"));
+				personagem.setEnergiaAtual		(resultado.getInt	("ENERGIAATUAL"));
 				personagem.setDanoNormal		(resultado.getDouble("DANONORMAL"));
 				personagem.setDanoMagia			(resultado.getDouble("DANOMAGIA"));
 				personagem.setResistenciaNormal	(resultado.getDouble("RESISTENCIANORMAL"));
 				personagem.setResistenciaMagia	(resultado.getDouble("RESISTENCIAMAGIA"));
-				personagem.setPrecisao			(resultado.getFloat("PRECISAO"));
-				personagem.setEsquiva			(resultado.getFloat("ESQUIVA"));
-				personagem.setNivel				(resultado.getInt("NIVEL"));
-				personagem.setExperiencia		(resultado.getInt("EXPERIENCIA"));
+				personagem.setPrecisao			(resultado.getFloat	("PRECISAO"));
+				personagem.setEsquiva			(resultado.getFloat	("ESQUIVA"));
+				personagem.setNivel				(resultado.getInt	("NIVEL"));
+				personagem.setExperiencia		(resultado.getInt	("EXPERIENCIA"));
 				personagem.setEquipe			(resultado.getString("EQUIPE"));
-				personagem.setId				(resultado.getInt("PERSONAGEMID"));
+				personagem.setId				(resultado.getInt	("PERSONAGEMID"));
 				lista.add(personagem);
 			}
 			Acesso.Desconectar();
