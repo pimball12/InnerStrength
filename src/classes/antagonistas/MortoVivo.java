@@ -9,6 +9,7 @@ public class MortoVivo extends Antagonista {
 	
 	public void DefinicaoInicial2()	{
 		Vida += 15;
+		VidaAtual = Vida;
 	}
 	
 }

@@ -8,7 +8,7 @@ public class Demonio extends Antagonista {
 	}
 	
 	public void DefinicaoInicial2()	{
-		DanoMagia += 5;
+		DanoMagia += 3;
 	}
 
 }

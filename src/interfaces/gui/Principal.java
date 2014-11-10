@@ -76,6 +76,7 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(scrollPaneTime1Per1);
 		
 			InfoTime1Per1 = new JTable();
+			InfoTime1Per1.setEnabled(false);
 			scrollPaneTime1Per1.setViewportView(InfoTime1Per1);
 		
 		scrollPaneTime1Per2 = new JScrollPane();
@@ -83,6 +84,7 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(scrollPaneTime1Per2);
 		
 			InfoTime1Per2 = new JTable();
+			InfoTime1Per2.setEnabled(false);
 			scrollPaneTime1Per2.setViewportView(InfoTime1Per2);
 		
 		scrollPaneTime2Per1 = new JScrollPane();
@@ -90,6 +92,7 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(scrollPaneTime2Per1);
 		
 			InfoTime2Per1 = new JTable();
+			InfoTime2Per1.setEnabled(false);
 			scrollPaneTime2Per1.setViewportView(InfoTime2Per1);
 		
 		scrollPaneTime2Per2 = new JScrollPane();
@@ -97,6 +100,7 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(scrollPaneTime2Per2);
 			
 			InfoTime2Per2 = new JTable();
+			InfoTime2Per2.setEnabled(false);
 			scrollPaneTime2Per2.setViewportView(InfoTime2Per2);
 		
 		JPanel panelTime1Per1 = new JPanel();
@@ -210,8 +214,12 @@ public class Principal {
 		comecar.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent arg0) {
-				PrincipalUtils.AdicionaFotos(Rodada.getProtagonista1(), Rodada.getProtagonista2(), Rodada.getAntagonista1(), Rodada.getAntagonista2(),
-											 FotoTime1Per1, FotoTime2Per1, FotoTime1Per2, FotoTime2Per2);
+				if (Rodada.getAntagonista1() != null && Rodada.getAntagonista2() != null && Rodada.getProtagonista1() != null && Rodada.getProtagonista2() != null)	{
+					PrincipalUtils.AdicionaFotos(Rodada.getProtagonista1(), Rodada.getProtagonista2(), Rodada.getAntagonista1(), Rodada.getAntagonista2(),
+												 FotoTime1Per1, FotoTime2Per1, FotoTime1Per2, FotoTime2Per2);
+					PrincipalUtils.AdicionaInformacoes(Rodada.getProtagonista1(),Rodada.getProtagonista2(),Rodada.getAntagonista1(), Rodada.getAntagonista2(),
+													   InfoTime1Per1,InfoTime2Per1,InfoTime1Per2,InfoTime2Per2);
+				}
 			}
 		});
 		
