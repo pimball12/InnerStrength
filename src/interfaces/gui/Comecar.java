@@ -1,5 +1,7 @@
 package interfaces.gui;
 
+import interfaces.funcionamento.Rodada;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +19,6 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 
 import utils.ComecarUtils;
-import utils.Rodada;
 import controladores.PersonagemControlador;
 
 public class Comecar extends JFrame {

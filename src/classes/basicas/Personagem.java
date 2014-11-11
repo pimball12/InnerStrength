@@ -51,6 +51,32 @@ public class Personagem {
 				inimigo.setVidaAtual(inimigo.getVidaAtual()-ataque);
 			}
 		}
+		EnergiaAtual -= 5;
+	}
+	
+	public void Evolui(double parametro)	{
+		if (parametro > Nivel)	{
+			Experiencia += 5;
+		} else if (parametro == Nivel)	{
+			Experiencia += 3;
+		} else {
+			Experiencia += 1;
+		}
+		
+		if (Experiencia >= 10)	{
+			Nivel += 1;
+			Experiencia = 0;
+			Vida += 4;
+			VidaAtual = Vida;
+			Energia += 4;
+			EnergiaAtual = Energia;
+			DanoNormal += 2;
+			DanoMagia += 2;
+			ResistenciaNormal += 1; 
+			ResistenciaMagia += 1;
+			Precisao += .01f;
+			Esquiva += .005f;
+		}
 	}
 
 	@Override

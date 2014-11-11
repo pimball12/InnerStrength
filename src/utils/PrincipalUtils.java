@@ -83,17 +83,12 @@ public class PrincipalUtils {
 		
 		infoProtagonista.setModel(modelo);
 	}
+	
+	public static void LimpaTabela(JTable tabela)	{
+		DefaultTableModel apaga = new DefaultTableModel(new String[0][0],new String[0]);
+		apaga.setRowCount(0);
+		tabela.setModel(apaga);
+	}
+	
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

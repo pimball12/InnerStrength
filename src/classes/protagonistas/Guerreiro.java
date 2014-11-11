@@ -15,6 +15,7 @@ public class Guerreiro extends Protagonista {
 		ResistenciaMagia -=4;
 		Esquiva -= 0.02;
 		Energia += 10;
+		EnergiaAtual = Energia;
 	}
 	
 }

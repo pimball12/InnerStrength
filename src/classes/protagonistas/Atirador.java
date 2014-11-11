@@ -9,9 +9,10 @@ public class Atirador extends Protagonista{
 	}
 	
 	public void DefinicaoInicial2()	{
-		Esquiva+=0.03;
-		Precisao+=0.05;
-		Energia+=5;
+		Esquiva+=0.1;
+		Precisao+=0.1;
+		Energia+=10;
 		DanoNormal+=2;
+		EnergiaAtual = Energia;
 	}
 }

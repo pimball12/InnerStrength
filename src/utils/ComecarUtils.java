@@ -1,5 +1,7 @@
 package utils;
 
+import interfaces.funcionamento.Rodada;
+
 import java.util.List;
 
 import javax.swing.JDialog;
