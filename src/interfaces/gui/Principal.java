@@ -274,9 +274,9 @@ public class Principal {
 		Rodada.Atacar(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
 		PrincipalUtils.AdicionaInformacoes(Rodada.getProtagonista1(),Rodada.getProtagonista2(),Rodada.getAntagonista1(), Rodada.getAntagonista2(),
 					   InfoTime1Per1,InfoTime2Per1,InfoTime1Per2,InfoTime2Per2);
+		boolean resultado = Rodada.PassaRodada();
 		Ocorrencias.setText(Mensagens.getOcorrencias());
 		Informacoes.setText(Mensagens.getInformacoes());
-		boolean resultado = Rodada.PassaRodada();
 		if (resultado == true)	{
 			BloqueaBotoes(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
 			FotoTime1Per1.setIcon(null);

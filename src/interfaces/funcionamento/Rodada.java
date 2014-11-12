@@ -73,9 +73,11 @@ public class Rodada {
 			(Protagonista2.getVidaAtual() > 0 || Antagonista2.getVidaAtual() > 0))	{
 			rodadaAtual += 1;
 			if (rodadaAtual %2 == 0)	{
-				Mensagens.setInformacoes("Rodada: "+rodadaAtual+"\r\nVez de: "+Protagonista2.getEquipe());
-			} else if (rodadaAtual %2 != 0) {
 				Mensagens.setInformacoes("Rodada: "+rodadaAtual+"\r\nVez de: "+Protagonista1.getEquipe());
+				IncrementaEnergias(Protagonista2, Antagonista2);
+			} else if (rodadaAtual %2 != 0) {
+				Mensagens.setInformacoes("Rodada: "+rodadaAtual+"\r\nVez de: "+Protagonista2.getEquipe());
+				IncrementaEnergias(Protagonista1, Antagonista1);
 			}
 			return false;
 		} else if (Protagonista1.getVidaAtual() <= 0 && Antagonista1.getVidaAtual() <= 0)	{
@@ -99,7 +101,7 @@ public class Rodada {
 		}
 	}
 	
-	public static void ChecaRadio1(JRadioButton Time1Per1, JRadioButton Time1Per2)	{
+	private static void ChecaRadio1(JRadioButton Time1Per1, JRadioButton Time1Per2)	{
 		if (Protagonista1.getVidaAtual() <= 0)	{
 			Time1Per1.setEnabled(false);
 			Time1Per2.setSelected(true);
@@ -109,7 +111,7 @@ public class Rodada {
 		}
 	}
 	
-	public static void ChecaRadio2(JRadioButton Time2Per1, JRadioButton Time2Per2)	{
+	private static void ChecaRadio2(JRadioButton Time2Per1, JRadioButton Time2Per2)	{
 		if (Protagonista2.getVidaAtual() <= 0)	{
 			Time2Per1.setEnabled(false);
 			Time2Per2.setSelected(true);
@@ -148,6 +150,20 @@ public class Rodada {
 			personagem.setEnergiaAtual(personagem.getEnergia());
 		}
 		PersonagemControlador.AtualizaPersonagens(personagens);
+	}
+	
+	private static void IncrementaEnergias(Personagem protagonista, Personagem antagonista)	{
+		IncrementaEnergia(protagonista);
+		IncrementaEnergia(antagonista);
+	}
+	
+	private static void IncrementaEnergia(Personagem personagem){
+		if (personagem.getEnergiaAtual() < personagem.getEnergia())	{
+			personagem.setEnergiaAtual(personagem.getEnergiaAtual() + 3);
+			if (personagem.getEnergiaAtual() > personagem.getEnergia())	{
+				personagem.setEnergiaAtual(personagem.getEnergia());
+			}
+		}
 	}
 
 }
