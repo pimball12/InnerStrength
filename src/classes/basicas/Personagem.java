@@ -54,6 +54,23 @@ public class Personagem {
 		EnergiaAtual -= 5;
 	}
 	
+	public void AtaqueModificado(Personagem inimigo)	{
+		double ataque = DanoNormal - inimigo.getResistenciaNormal()/2;
+		if (Chance.ConsegueAcertar(Precisao))	{
+			if (!Chance.ConsegueEsquivar(inimigo.getEsquiva()))	{
+				inimigo.setVidaAtual(inimigo.getVidaAtual()-ataque);
+			}
+		}
+	}
+	
+	public void AtaqueModificado(Personagem inimigo, double ataque)	{
+		if (Chance.ConsegueAcertar(Precisao))	{
+			if (!Chance.ConsegueEsquivar(inimigo.getEsquiva()))	{
+				inimigo.setVidaAtual(inimigo.getVidaAtual()-ataque);
+			}
+		}
+	}
+	
 	public void Evolui(double parametro)	{
 		if (parametro > Nivel)	{
 			Experiencia += 5;

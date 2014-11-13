@@ -5,7 +5,6 @@ import interfaces.funcionamento.Rodada;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -13,41 +12,74 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
 import utils.PrincipalUtils;
-import javax.swing.JTextPane;
 
 public class Principal {
 
 	private JFrame frmInnerStrenght;
 	private JTable InfoTime1Per1;
 	private JTable InfoTime1Per2;
+	private JScrollPane scrollPaneTime1Per1;
 	private JScrollPane scrollPaneTime1Per2;
-	private JTable InfoTime2Per1;
 	private JScrollPane scrollPaneTime2Per1;
-	private JTable InfoTime2Per2;
 	private JScrollPane scrollPaneTime2Per2;
+	private JTable InfoTime2Per1;
+	private JTable InfoTime2Per2;
 	private Comecar comecar = new Comecar();
+	private Magias magias = new Magias();
 	private JLabel FotoTime1Per1;
 	private JLabel FotoTime1Per2;
 	private JLabel FotoTime2Per1;
 	private JLabel FotoTime2Per2;
+	private JButton btnComecar;
+	private JButton btnSair;
 	private JButton btnAtacar;
 	private JButton btnMagia;
 	private JButton btnPararLuta;
-	private Rodada rodada;
 	private JTextPane Ocorrencias;
 	private JTextPane Informacoes;
 	private JScrollPane scrollPane;
+	private	JRadioButton radioTime1Per1;
+	private	JRadioButton radioTime1Per2;
+	private	JRadioButton radioTime2Per1;
+	private	JRadioButton radioTime2Per2;
 	
+	public JRadioButton getRadioTime1Per1() {
+		return radioTime1Per1;
+	}
+	public void setRadioTime1Per1(JRadioButton radioTime1Per1) {
+		this.radioTime1Per1 = radioTime1Per1;
+	}
+	public JRadioButton getRadioTime1Per2() {
+		return radioTime1Per2;
+	}
+	public void setRadioTime1Per2(JRadioButton radioTime1Per2) {
+		this.radioTime1Per2 = radioTime1Per2;
+	}
+	public JRadioButton getRadioTime2Per1() {
+		return radioTime2Per1;
+	}
+	public void setRadioTime2Per1(JRadioButton radioTime2Per1) {
+		this.radioTime2Per1 = radioTime2Per1;
+	}
+	public JRadioButton getRadioTime2Per2() {
+		return radioTime2Per2;
+	}
+	public void setRadioTime2Per2(JRadioButton radioTime2Per2) {
+		this.radioTime2Per2 = radioTime2Per2;
+	}
+
 	/**
 	 * Launch the application.
 	 */
@@ -56,6 +88,7 @@ public class Principal {
 			public void run() {
 				try {
 					Principal window = new Principal();
+					window.magias.setPrincipal(window);
 					window.frmInnerStrenght.setVisible(true);
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
@@ -77,14 +110,14 @@ public class Principal {
 	 */
 	private void initialize() {
 		frmInnerStrenght = new JFrame();
-		frmInnerStrenght.setTitle("Inner Strength");
-		frmInnerStrenght.getContentPane().setBackground(new Color(253, 245, 230));
-		frmInnerStrenght.getContentPane().setForeground(Color.LIGHT_GRAY);
-		frmInnerStrenght.setBounds(100, 100, 750, 500);
-		frmInnerStrenght.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmInnerStrenght.getContentPane().setLayout(null);
+			frmInnerStrenght.setTitle("Inner Strength");
+			frmInnerStrenght.getContentPane().setBackground(new Color(253, 245, 230));
+			frmInnerStrenght.getContentPane().setForeground(Color.LIGHT_GRAY);
+			frmInnerStrenght.setBounds(100, 100, 750, 500);
+			frmInnerStrenght.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frmInnerStrenght.getContentPane().setLayout(null);
 		
-		JScrollPane scrollPaneTime1Per1 = new JScrollPane();
+		scrollPaneTime1Per1 = new JScrollPane();
 			scrollPaneTime1Per1.setBounds(10, 11, 127, 154);
 			frmInnerStrenght.getContentPane().add(scrollPaneTime1Per1);
 		
@@ -156,58 +189,54 @@ public class Principal {
 				panelTime2Per2.add(FotoTime2Per2);
 				FotoTime2Per2.setLabelFor(InfoTime2Per2);
 		
-		final ButtonGroup RadioTime1 = new ButtonGroup();
+		ButtonGroup RadioTime1 = new ButtonGroup();
 		ButtonGroup RadioTime2 = new ButtonGroup();
 				
-		final JRadioButton radioTime1Per1 = new JRadioButton("");
-		radioTime1Per1.setEnabled(false);
+		radioTime1Per1 = new JRadioButton("");
+			radioTime1Per1.setEnabled(false);
 			radioTime1Per1.setBounds(278, 75, 21, 23);
 			frmInnerStrenght.getContentPane().add(radioTime1Per1);
 			RadioTime1.add(radioTime1Per1);
 		
-		final JRadioButton radioTime1Per2 = new JRadioButton("");
-		radioTime1Per2.setEnabled(false);
+		radioTime1Per2 = new JRadioButton("");
+			radioTime1Per2.setEnabled(false);
 			radioTime1Per2.setBounds(278, 244, 21, 23);
 			frmInnerStrenght.getContentPane().add(radioTime1Per2);
 			RadioTime1.add(radioTime1Per2);
 		
-		final JRadioButton radioTime2Per1 = new JRadioButton("");
-		radioTime2Per1.setEnabled(false);
+		radioTime2Per1 = new JRadioButton("");
+			radioTime2Per1.setEnabled(false);
 			radioTime2Per1.setBounds(434, 75, 21, 23);
 			frmInnerStrenght.getContentPane().add(radioTime2Per1);
 			RadioTime2.add(radioTime2Per1);
 		
-		final JRadioButton radioTime2Per2 = new JRadioButton("");
-		radioTime2Per2.setEnabled(false);
+		radioTime2Per2 = new JRadioButton("");
+			radioTime2Per2.setEnabled(false);
 			radioTime2Per2.setBounds(434, 244, 21, 23);
 			frmInnerStrenght.getContentPane().add(radioTime2Per2);
 			RadioTime2.add(radioTime2Per2);
 		
 		btnAtacar = new JButton("Atacar");
-		btnAtacar.setEnabled(false);
-		btnAtacar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Atacar(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
-			}
-		});
+			btnAtacar.setEnabled(false);
+			btnAtacar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					Atacar(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
+				}
+			});
 			btnAtacar.setBounds(305, 11, 123, 76);
 			frmInnerStrenght.getContentPane().add(btnAtacar);
 		
 		btnMagia = new JButton("Lan\u00E7ar Magia");
-		btnMagia.setEnabled(false);
-		btnMagia.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				System.out.println(Rodada.getProtagonista1().getClasse());
-				System.out.println(Rodada.getProtagonista2().getClasse());
-				System.out.println(Rodada.getAntagonista1().getClasse());
-				System.out.println(Rodada.getAntagonista2().getClasse());
-			}
-		});
+			btnMagia.setEnabled(false);
+			btnMagia.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					mostrarMagias();
+				}
+			});
 			btnMagia.setBounds(305, 89, 123, 76);
 			frmInnerStrenght.getContentPane().add(btnMagia);
-			Font fonte = new Font("Verdana", Font.BOLD, 12);
 		
-		JButton btnComecar = new JButton("Come\u00E7ar");
+		btnComecar = new JButton("Come\u00E7ar");
 			btnComecar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					mostrarComecar();
@@ -217,15 +246,19 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(btnComecar);
 		
 		btnPararLuta = new JButton("Parar Luta");
-		btnPararLuta.setEnabled(false);
+			btnPararLuta.setEnabled(false);
 			btnPararLuta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					int opcao = JOptionPane.showConfirmDialog(null, "Deseja mesmo parar a luta ?", "Parar Luta", JOptionPane.YES_NO_OPTION);
+					if ( opcao == JOptionPane.YES_OPTION)	{
+						ParaJogo();
+					}
 				}
 			});
 			btnPararLuta.setBounds(258, 403, 225, 48);
 			frmInnerStrenght.getContentPane().add(btnPararLuta);
 			
-		JButton btnSair = new JButton("Sair");
+		btnSair = new JButton("Sair");
 			btnSair.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					System.exit(0);
@@ -259,38 +292,36 @@ public class Principal {
 					Mensagens.setOcorrencias("Novo Jogo: "+Rodada.getAntagonista1().getEquipe()+" X "+Rodada.getAntagonista2().getEquipe());
 					Informacoes.setText(Mensagens.getInformacoes());
 					Ocorrencias.setText(Mensagens.getOcorrencias());
-					LiberaBotoes(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
+					LiberaBotoes();
 				}
 			}
 		});
 		
 	}
-	
+
 	private void mostrarComecar()	{
 		comecar.setVisible(true);
+	}
+	
+	private void mostrarMagias()	{
+		magias.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		magias.setVisible(true);
 	}
 	
 	private void Atacar(JRadioButton radioTime1Per1, JRadioButton radioTime1Per2, JRadioButton radioTime2Per1, JRadioButton radioTime2Per2)	{
 		Rodada.Atacar(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
 		PrincipalUtils.AdicionaInformacoes(Rodada.getProtagonista1(),Rodada.getProtagonista2(),Rodada.getAntagonista1(), Rodada.getAntagonista2(),
 					   InfoTime1Per1,InfoTime2Per1,InfoTime1Per2,InfoTime2Per2);
+		Rodada.ChecaRadio(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
 		boolean resultado = Rodada.PassaRodada();
 		Ocorrencias.setText(Mensagens.getOcorrencias());
 		Informacoes.setText(Mensagens.getInformacoes());
 		if (resultado == true)	{
-			BloqueaBotoes(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
-			FotoTime1Per1.setIcon(null);
-			FotoTime1Per2.setIcon(null);
-			FotoTime2Per1.setIcon(null);
-			FotoTime2Per2.setIcon(null);
-			PrincipalUtils.LimpaTabela(InfoTime1Per1);
-			PrincipalUtils.LimpaTabela(InfoTime1Per2);
-			PrincipalUtils.LimpaTabela(InfoTime2Per1);
-			PrincipalUtils.LimpaTabela(InfoTime2Per2);
+			ParaJogo();
 		}
 	}
 	
-	private void LiberaBotoes(	JRadioButton radioTime1Per1, JRadioButton radioTime1Per2, JRadioButton radioTime2Per1, JRadioButton radioTime2Per2)	{
+	private void LiberaBotoes()	{
 		radioTime1Per1.setEnabled(true);
 		radioTime1Per2.setEnabled(true);
 		radioTime2Per1.setEnabled(true);
@@ -298,9 +329,11 @@ public class Principal {
 		btnAtacar.setEnabled(true);
 		btnMagia.setEnabled(true);
 		btnPararLuta.setEnabled(true);
+		btnComecar.setEnabled(false);
+		
 	}
 	
-	private void BloqueaBotoes(	JRadioButton radioTime1Per1, JRadioButton radioTime1Per2, JRadioButton radioTime2Per1, JRadioButton radioTime2Per2)	{
+	private void BloqueaBotoes()	{
 		radioTime1Per1.setEnabled(false);
 		radioTime1Per2.setEnabled(false);
 		radioTime2Per1.setEnabled(false);
@@ -308,7 +341,21 @@ public class Principal {
 		btnAtacar.setEnabled(false);
 		btnMagia.setEnabled(false);
 		btnPararLuta.setEnabled(false);
+		btnComecar.setEnabled(true);
 		Informacoes.setText(Mensagens.getInformacoes());
 		Ocorrencias.setText(Mensagens.getOcorrencias());
+	}
+	
+	private void ParaJogo()	{
+		BloqueaBotoes();
+		FotoTime1Per1.setIcon(null);
+		FotoTime1Per2.setIcon(null);
+		FotoTime2Per1.setIcon(null);
+		FotoTime2Per2.setIcon(null);
+		PrincipalUtils.LimpaTabela(InfoTime1Per1);
+		PrincipalUtils.LimpaTabela(InfoTime1Per2);
+		PrincipalUtils.LimpaTabela(InfoTime2Per1);
+		PrincipalUtils.LimpaTabela(InfoTime2Per2);
+		Mensagens.setInformacoes(""); Informacoes.setText("");
 	}
 }

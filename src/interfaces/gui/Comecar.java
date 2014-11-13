@@ -1,7 +1,5 @@
 package interfaces.gui;
 
-import interfaces.funcionamento.Rodada;
-
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import utils.ComecarUtils;
 import controladores.PersonagemControlador;
 
+@SuppressWarnings("serial")
 public class Comecar extends JFrame {
 
 	private JPanel contentPane;
@@ -92,7 +91,6 @@ public class Comecar extends JFrame {
 		btnComecarLuta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (ComecarUtils.DefinirTimes((String)comboBoxTime1.getSelectedItem(), (String)comboBoxTime2.getSelectedItem()))	{
-					System.out.println(Rodada.ShowRodada());
 					dispose();
 				}
 			}
@@ -112,6 +110,8 @@ public class Comecar extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 			btnCancelar.addActionListener(new ActionListener()	{
 				public void actionPerformed(ActionEvent e){
+					comboBoxTime1.setSelectedItem(null);
+					comboBoxTime2.setSelectedItem(null);
 					dispose();
 				}
 			});

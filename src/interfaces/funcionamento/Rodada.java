@@ -1,20 +1,24 @@
 package interfaces.funcionamento;
 
+import interfaces.gui.Principal;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
-import controladores.PersonagemControlador;
 import classes.basicas.Personagem;
+import controladores.PersonagemControlador;
 
-public class Rodada {
+public class Rodada extends Principal	{
 	private static Personagem Protagonista1;
 	private static Personagem Antagonista1;
 	private static Personagem Protagonista2;
 	private static Personagem Antagonista2;
 	private static int rodadaAtual = 0;
+	private static Personagem SelecionadoJogando;
+	private static Personagem SelecionadoEsperando;
 	
 	public static Personagem getProtagonista1() {
 		return Protagonista1;
@@ -40,9 +44,17 @@ public class Rodada {
 	public static void setAntagonista2(Personagem antagonista2) {
 		Antagonista2 = antagonista2;
 	}
-	
-	public static String ShowRodada() {
-		return "Rodada ["+Protagonista1+", "+Antagonista1+", "+Protagonista2+", "+Antagonista2+"]";
+	public static Personagem getSelecionadoJogando() {
+		return SelecionadoJogando;
+	}
+	public static void setSelecionadoJogando(Personagem selecionadoJogando) {
+		SelecionadoJogando = selecionadoJogando;
+	}
+	public static Personagem getSelecionadoEsperando() {
+		return SelecionadoEsperando;
+	}
+	public static void setSelecionadoEsperando(Personagem selecionadoEsperando) {
+		SelecionadoEsperando = selecionadoEsperando;
 	}
 	
 	public static int getRodadaAtual() {
@@ -68,6 +80,24 @@ public class Rodada {
 		}
 	}
 	
+	public static Personagem Selecionado (JRadioButton Time1Per1, JRadioButton Time2Per1)	{
+		if (rodadaAtual %2 == 0)	{
+			return SelecionadoTime1(Time1Per1);
+		} else if (rodadaAtual %2 != 0)	{
+			return SelecionadoTime2(Time2Per1);
+		}
+		return null;
+	}
+	
+	public static Personagem Esperando (JRadioButton Time1Per1, JRadioButton Time2Per1)	{
+		if (rodadaAtual %2 == 0)	{
+			return SelecionadoTime2(Time2Per1);
+		} else if (rodadaAtual %2 != 0)	{
+			return SelecionadoTime1(Time1Per1);
+		}
+		return null;
+	}
+	
 	public static Boolean PassaRodada()	{
 		if ((Protagonista1.getVidaAtual() > 0 || Antagonista1.getVidaAtual() > 0) && 
 			(Protagonista2.getVidaAtual() > 0 || Antagonista2.getVidaAtual() > 0))	{
@@ -84,15 +114,11 @@ public class Rodada {
 			// Desabilita os botões, limpa as telas e imagens e manda uma mensagem falando que o Protagonista1.Time Venceu, e depois colocar As variáveis de Rodada como nulo e salvar o que foi mudado no banco de dados.
 			JOptionPane.showMessageDialog(null, "Parabéns, equipe "+Protagonista2.getEquipe()+", vocês venceram!");
 			AtualizaPersonagens();
-			Mensagens.setInformacoes("");
-			Mensagens.setOcorrencias("");
 			rodadaAtual = 0;
 			return true;
 		} else if (Protagonista2.getVidaAtual() <= 0 && Antagonista2.getVidaAtual() <= 0)	{
 			JOptionPane.showMessageDialog(null, "Parabéns, equipe "+Protagonista1.getEquipe()+", vocês venceram!");
 			AtualizaPersonagens();
-			Mensagens.setInformacoes("");
-			Mensagens.setOcorrencias("");
 			rodadaAtual = 0;
 			return true;
 		} else {
@@ -101,49 +127,52 @@ public class Rodada {
 		}
 	}
 	
-	private static void ChecaRadio1(JRadioButton Time1Per1, JRadioButton Time1Per2)	{
-		if (Protagonista1.getVidaAtual() <= 0)	{
-			Time1Per1.setEnabled(false);
-			Time1Per2.setSelected(true);
-		} else if (Antagonista1.getVidaAtual() <= 0)	{
-			Time1Per2.setEnabled(false);
-			Time1Per1.setSelected(true);
-		}
-	}
-	
-	private static void ChecaRadio2(JRadioButton Time2Per1, JRadioButton Time2Per2)	{
-		if (Protagonista2.getVidaAtual() <= 0)	{
-			Time2Per1.setEnabled(false);
-			Time2Per2.setSelected(true);
-		} else if (Antagonista2.getVidaAtual() <= 0)	{
-			Time2Per2.setEnabled(false);
-			Time2Per1.setSelected(true);
+	public static void ChecaRadio(JRadioButton Time1Per1, JRadioButton Time1Per2, JRadioButton Time2Per1, JRadioButton Time2Per2)	{
+		if (rodadaAtual % 2 != 0)	{
+			if (Protagonista1.getVidaAtual() <= 0)	{
+				Time1Per1.setEnabled(false);
+				Time1Per2.setSelected(true);
+			} else if (Antagonista1.getVidaAtual() <= 0)	{
+				Time1Per2.setEnabled(false);
+				Time1Per1.setSelected(true);
+			}
+		} else if (rodadaAtual % 2 == 0) {
+			if (Protagonista2.getVidaAtual() <= 0)	{
+				Time2Per1.setEnabled(false);
+				Time2Per2.setSelected(true);
+			} else if (Antagonista2.getVidaAtual() <= 0)	{
+				Time2Per2.setEnabled(false);
+				Time2Per1.setSelected(true);
+			}
 		}
 	}
 	
 	public static void Atacar(JRadioButton Time1Per1, JRadioButton Time1Per2, JRadioButton Time2Per1, JRadioButton Time2Per2) {
 		Personagem time1 = SelecionadoTime1(Time1Per1);
 		Personagem time2 = SelecionadoTime2(Time2Per1);
+		Double VidaInicial1 = time1.getVidaAtual();
+		Double VidaInicial2 = time2.getVidaAtual();
 		if (rodadaAtual%2 == 0)	{
 			time1.AtacaPersonagem(time2);
 			Mensagens.incrementaOcorrencias(time1.getClasse()+" do time "+time1.getEquipe()+" atacou "+time2.getClasse()+" do time "+time2.getEquipe());
+			if (VidaInicial2 == time2.getVidaAtual())	{ Mensagens.incrementaOcorrencias(time1.getClasse()+" do time "+time1.getEquipe()+" errou!");}
 			if (time2.getVidaAtual() <= 0)	{
 				time1.Evolui(time2.getNivel());
 				Mensagens.incrementaOcorrencias(time1.getClasse()+" do time "+time1.getEquipe()+" derrotou "+time2.getClasse()+" do time "+time2.getEquipe());
 			}
-			ChecaRadio2(Time2Per1,Time2Per2);
 		} else if (rodadaAtual%2 != 0)	{
 			time2.AtacaPersonagem(time1);
 			Mensagens.incrementaOcorrencias(time2.getClasse()+" do time "+time2.getEquipe()+" atacou "+time1.getClasse()+" do time "+time1.getEquipe());
+			if (VidaInicial1 == time1.getVidaAtual())	{ Mensagens.incrementaOcorrencias(time2.getClasse()+" do time "+time2.getEquipe()+" errou!");}
 			if (time1.getVidaAtual() <= 0)	{
 				time2.Evolui(time1.getNivel());
 				Mensagens.incrementaOcorrencias(time2.getClasse()+" do time "+time2.getEquipe()+" derrotou "+time1.getClasse()+" do time "+time1.getEquipe());
 			}
-			ChecaRadio1(Time1Per1, Time1Per2);
 		}
 	}
 	
 	public static void AtualizaPersonagens()	{
+		@SuppressWarnings("serial")
 		List<Personagem> personagens = new ArrayList<Personagem>(){{add(Antagonista1); add(Antagonista2); add(Protagonista1); add(Protagonista2);}};
 		for (Personagem personagem : personagens) {
 			personagem.setVidaAtual(personagem.getVida());

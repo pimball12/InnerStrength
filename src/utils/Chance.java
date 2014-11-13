@@ -20,6 +20,11 @@ public class Chance {
 		return precisao < resultado ? false : true;
 	}
 	
+	public static boolean UmEm(int numero)	{
+		int resultado = random.nextInt(numero+1);
+		return numero == resultado ? true : false;
+	}
+	
 	public static boolean BoleanoAleatorio()	{
 		boolean resultado = random.nextBoolean();
 		return resultado;
