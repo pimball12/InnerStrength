@@ -37,17 +37,17 @@ public class Conjurador extends Protagonista{
 	}
 	
 	public void Armageddon(Personagem protagonista, Personagem antagonista)	{
-		double ataque1 = DanoMagia*1.5 - protagonista.getResistenciaMagia();
-		double ataque2 = DanoMagia*1.5 - antagonista.getResistenciaMagia();
+		double ataque1 = DanoMagia*1.8 - protagonista.getResistenciaMagia();
+		double ataque2 = DanoMagia*1.8 - antagonista.getResistenciaMagia();
 		AtaqueMagico(protagonista, ataque1);
 		AtaqueMagico(antagonista, ataque2);
 		EnergiaAtual -= 60;
 	}
 	
 	public void Trovao(Personagem inimigo)	{
-		double ataque = DanoMagia*2 - inimigo.getResistenciaMagia();
+		double ataque = DanoMagia*1.5 - inimigo.getResistenciaMagia();
 		AtaqueMagico(inimigo, ataque);
-		EnergiaAtual -=50;
+		EnergiaAtual -=40;
 	}
 	
 }

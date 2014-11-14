@@ -24,7 +24,7 @@ public class Guerreiro extends Protagonista {
 	//Especiais
 	
 	public void Descontrole(Personagem inimigo)	{
-		double ataque = DanoNormal*0.8 - inimigo.getResistenciaNormal()/2;
+		double ataque = DanoNormal*0.5 - inimigo.getResistenciaNormal()/2;
 		int hit = 0;
 		while (true)	{
 			double antes = inimigo.getVidaAtual();
@@ -32,20 +32,20 @@ public class Guerreiro extends Protagonista {
 			if (antes == inimigo.getVidaAtual()) { break; }
 			JOptionPane.showMessageDialog(null,"Golpe numero "+(hit+=1)+"!");
 		}
-		Energia -= 50;
+		EnergiaAtual -= 50;
 	}
 	
 	public void AtaqueBrutal(Personagem inimigo)	{
 		double ataque = DanoNormal*1.5 - inimigo.getResistenciaNormal()/4;
 		AtaqueModificado(inimigo, ataque);
-		Energia -= 40;
+		EnergiaAtual -= 40;
 	}
 	
 	public void Violencia(Personagem inimigo)	{
 		double ataque = DanoNormal*1.5 - inimigo.getResistenciaNormal()/2;
 		AtaqueModificado(inimigo, ataque);
 		AtaqueModificado(this, DanoNormal/10);
-		Energia -= 30;
+		EnergiaAtual -= 30;
 	}
 	
 }

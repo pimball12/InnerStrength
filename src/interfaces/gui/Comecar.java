@@ -154,14 +154,13 @@ public class Comecar extends JFrame {
 		criarNovoTime.setVisible(true);
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void repopularComboboxes(JComboBox comboBoxTime1, JComboBox comboBoxTime2)	{
 		List<String> listaTimes = PersonagemControlador.ListaColunaDistinta("EQUIPE");
 		comboBoxTime1.removeAllItems();
 		comboBoxTime2.removeAllItems();
 		for (String time : listaTimes) {
 			comboBoxTime1.addItem(time);
-		}
-		for (String time : listaTimes) {
 			comboBoxTime2.addItem(time);
 		}
 		comboBoxTime1.setSelectedItem(null);

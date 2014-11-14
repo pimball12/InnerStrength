@@ -1,38 +1,53 @@
 package interfaces.gui;
 
+import interfaces.funcionamento.Rodada;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-@SuppressWarnings("serial")
-public class Magias extends JDialog {
+import utils.MagiasUtils;
+
+public class Magias extends JFrame {
 	
-	private Principal principal;
+	List<String> listaPoderes = MagiasUtils.retornaMagias();
+	JComboBox<String> comboBox;
 
-	public void setPrincipal(Principal principal) {
-		this.principal = principal;
+	public JComboBox<String> getComboBox() {
+		return comboBox;
 	}
 
 	/**
 	 * Create the dialog.
 	 */
-	public Magias() {
+	
+	public Magias() {		
+		
 		setBounds(100, 100, 266, 200);
 		getContentPane().setLayout(null);
 		
 		JButton btnLanar = new JButton("Lan\u00E7ar");
 			btnLanar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					System.out.println(principal.getRadioTime1Per1().isSelected());
+					Magia();
 				}
 			});
 			btnLanar.setBounds(10, 108, 108, 43);
 			getContentPane().add(btnLanar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				comboBox.setSelectedItem(null);
+				dispose();
+			}
+		});
 			btnCancelar.setBounds(132, 108, 108, 43);
 			getContentPane().add(btnCancelar);
 		
@@ -40,9 +55,20 @@ public class Magias extends JDialog {
 			textPane.setEditable(false);
 			textPane.setBounds(10, 42, 230, 56);
 			getContentPane().add(textPane);
-		
-		JComboBox comboBox = new JComboBox();
+			
+		comboBox = new JComboBox(listaPoderes.toArray());
+			comboBox.setSelectedItem(null);
 			comboBox.setBounds(10, 11, 230, 20);
 			getContentPane().add(comboBox);
+			
 	}
+	
+	private void Magia()	{
+		if (MagiasUtils.podeExecutar((String)comboBox.getSelectedItem(), Rodada.SelecionaPersonagem("atual", true)))	{
+			dispose();
+		} else {
+			JOptionPane.showMessageDialog(null, "Você não tem energia o suficiente!");
+		}
+	}
+	
 }

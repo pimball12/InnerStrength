@@ -5,9 +5,11 @@ import interfaces.gui.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 
+import utils.MagiasUtils;
 import classes.basicas.Personagem;
 import controladores.PersonagemControlador;
 
@@ -19,7 +21,30 @@ public class Rodada extends Principal	{
 	private static int rodadaAtual = 0;
 	private static Personagem SelecionadoJogando;
 	private static Personagem SelecionadoEsperando;
+	private static JRadioButton Time1Per1 = new JRadioButton();
+	private static JRadioButton Time1Per2;
+	private static JRadioButton Time2Per1 = new JRadioButton();
+	private static JRadioButton Time2Per2;
 	
+	public static void setRadios(JRadioButton time1Per1, JRadioButton time1Per2, JRadioButton time2Per1, JRadioButton time2Per2){
+		Time1Per1 = time1Per1;
+		Time1Per2 = time1Per2;
+		Time2Per1 = time2Per1;
+		Time2Per2 = time2Per2;
+	}
+	
+	public static JRadioButton getTime1Per1() {
+		return Time1Per1;
+	}
+	public static JRadioButton getTime1Per2() {
+		return Time1Per2;
+	}
+	public static JRadioButton getTime2Per1() {
+		return Time2Per1;
+	}
+	public static JRadioButton getTime2Per2() {
+		return Time2Per2;
+	}
 	public static Personagem getProtagonista1() {
 		return Protagonista1;
 	}
@@ -56,7 +81,6 @@ public class Rodada extends Principal	{
 	public static void setSelecionadoEsperando(Personagem selecionadoEsperando) {
 		SelecionadoEsperando = selecionadoEsperando;
 	}
-	
 	public static int getRodadaAtual() {
 		return rodadaAtual;
 	}
@@ -64,36 +88,38 @@ public class Rodada extends Principal	{
 		rodadaAtual = RodadaAtual;
 	}
 	
-	public static Personagem SelecionadoTime1(JRadioButton Time1Per1)	{
-		if (Time1Per1.isSelected())	{
-			return Protagonista1;
-		} else {
-			return Antagonista1;
-		}
-	}
-	
-	public static Personagem SelecionadoTime2(JRadioButton Time2Per1)	{
-		if (Time2Per1.isSelected())	{
-			return Protagonista2;
-		} else {
-			return Antagonista2;
-		}
-	}
-	
-	public static Personagem Selecionado (JRadioButton Time1Per1, JRadioButton Time2Per1)	{
-		if (rodadaAtual %2 == 0)	{
-			return SelecionadoTime1(Time1Per1);
-		} else if (rodadaAtual %2 != 0)	{
-			return SelecionadoTime2(Time2Per1);
+	public static Personagem SelecionadoTime(int time, boolean selecionado)	{
+		if (time == 1)	{
+			if (Time1Per1.isSelected())	{
+				return selecionado ? Protagonista1 : Antagonista1;
+			} else {
+				return selecionado ? Antagonista1 : Protagonista1;
+			}
+		} else if (time == 2) {
+			if (Time2Per1.isSelected())	{
+				return selecionado ? Protagonista2 : Antagonista2;
+			} else {
+				return selecionado ? Antagonista2 : Protagonista2;
+			}
 		}
 		return null;
 	}
 	
-	public static Personagem Esperando (JRadioButton Time1Per1, JRadioButton Time2Per1)	{
-		if (rodadaAtual %2 == 0)	{
-			return SelecionadoTime2(Time2Per1);
-		} else if (rodadaAtual %2 != 0)	{
-			return SelecionadoTime1(Time1Per1);
+	public static Personagem SelecionaPersonagem(String turno, boolean selecionado)	{
+		if (turno == "atual")	{
+			if (rodadaAtual %2 == 0)	{
+				return SelecionadoTime(1, selecionado);
+			} else if (rodadaAtual %2 != 0)	{
+				return SelecionadoTime(2, selecionado);
+			}
+			return null;
+		} else if (turno == "outro") {
+			if (rodadaAtual %2 == 0)	{
+				return SelecionadoTime(2, selecionado);
+			} else if (rodadaAtual %2 != 0)	{
+				return SelecionadoTime(1, selecionado);
+			}
+			return null;
 		}
 		return null;
 	}
@@ -147,27 +173,31 @@ public class Rodada extends Principal	{
 		}
 	}
 	
-	public static void Atacar(JRadioButton Time1Per1, JRadioButton Time1Per2, JRadioButton Time2Per1, JRadioButton Time2Per2) {
-		Personagem time1 = SelecionadoTime1(Time1Per1);
-		Personagem time2 = SelecionadoTime2(Time2Per1);
-		Double VidaInicial1 = time1.getVidaAtual();
-		Double VidaInicial2 = time2.getVidaAtual();
-		if (rodadaAtual%2 == 0)	{
-			time1.AtacaPersonagem(time2);
-			Mensagens.incrementaOcorrencias(time1.getClasse()+" do time "+time1.getEquipe()+" atacou "+time2.getClasse()+" do time "+time2.getEquipe());
-			if (VidaInicial2 == time2.getVidaAtual())	{ Mensagens.incrementaOcorrencias(time1.getClasse()+" do time "+time1.getEquipe()+" errou!");}
-			if (time2.getVidaAtual() <= 0)	{
-				time1.Evolui(time2.getNivel());
-				Mensagens.incrementaOcorrencias(time1.getClasse()+" do time "+time1.getEquipe()+" derrotou "+time2.getClasse()+" do time "+time2.getEquipe());
-			}
-		} else if (rodadaAtual%2 != 0)	{
-			time2.AtacaPersonagem(time1);
-			Mensagens.incrementaOcorrencias(time2.getClasse()+" do time "+time2.getEquipe()+" atacou "+time1.getClasse()+" do time "+time1.getEquipe());
-			if (VidaInicial1 == time1.getVidaAtual())	{ Mensagens.incrementaOcorrencias(time2.getClasse()+" do time "+time2.getEquipe()+" errou!");}
-			if (time1.getVidaAtual() <= 0)	{
-				time2.Evolui(time1.getNivel());
-				Mensagens.incrementaOcorrencias(time2.getClasse()+" do time "+time2.getEquipe()+" derrotou "+time1.getClasse()+" do time "+time1.getEquipe());
-			}
+	public static void Atacar()	{
+		Personagem personagem = SelecionaPersonagem("atual", true);
+		Personagem inimigo = SelecionaPersonagem("outro", true);
+		Double VidaInicial = inimigo.getVidaAtual();
+		personagem.AtacaPersonagem(inimigo);
+		Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" atacou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		if (VidaInicial == inimigo.getVidaAtual())	{ Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" errou!");}
+		if (inimigo.getVidaAtual() <= 0)	{
+			personagem.Evolui(inimigo.getNivel());
+			Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" derrotou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		}
+	}
+	
+	public static void executaMagias(JComboBox comboBox)	{
+		Personagem personagem = SelecionaPersonagem("atual", true);
+		Personagem parceiro = SelecionaPersonagem("atual", false);
+		Personagem inimigo = SelecionaPersonagem("outro", true);
+		Personagem parceiroinimigo = SelecionaPersonagem("outro", false);
+		Double VidaInicial = inimigo.getVidaAtual();
+		MagiasUtils.executaMagias((String)comboBox.getSelectedItem(),personagem,parceiro,inimigo,parceiroinimigo);
+		Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" atacou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		if (VidaInicial == inimigo.getVidaAtual())	{ Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" errou!");}
+		if (inimigo.getVidaAtual() <= 0)	{
+			personagem.Evolui(inimigo.getNivel());
+			Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" derrotou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
 		}
 	}
 	

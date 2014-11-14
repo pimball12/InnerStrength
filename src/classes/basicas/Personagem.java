@@ -2,7 +2,7 @@ package classes.basicas;
 
 import utils.Chance;
 
-public class Personagem {
+public abstract class Personagem{
 	protected int 			Id;
 	protected double  		Vida;
 	protected double		VidaAtual;
@@ -21,7 +21,7 @@ public class Personagem {
 	protected String 		Time;
 
 	public void DefinicaoInicial(double danoNormal, double danoMagia, double resistenciaNormal,double resistenciaMagia, String equipe)	{
-		Vida = 80;
+		Vida = 160;
 		VidaAtual = Vida;
 		Energia = 100;
 		EnergiaAtual = Energia;
@@ -232,5 +232,31 @@ public class Personagem {
 	public void setTime(String time) {
 		Time = time;
 	}
+	
+	//Magias
+	
+	public void CuraPersonagem(Personagem personagem){}
+	
+	public void GarrasAmaldicoadas(Personagem inimigo){}
+	public void DrenarForcas(Personagem inimigo, Personagem parceiro){}
+	
+	public void Canibalismo(Personagem inimigo){}
+	public void Ebola(Personagem inimigo){}
+	
+	public void TiroProAlto(Personagem protagonista, Personagem antagonista){}
+	public void RugidoDeGuerra(Personagem parceiro){}
+	
+	public void ChuvaDeGranadas(Personagem protagonista, Personagem antagonista){}
+	public void TiroCerteiro(Personagem inimigo){}
+	public void BalaConjurada(Personagem inimigo){}
+	
+	public void BolaDeFogo(Personagem inimigo){}
+	public void AtaqueMagico(Personagem inimigo, double ataque){}
+	public void Armageddon(Personagem protagonista, Personagem antagonista){}
+	public void Trovao(Personagem inimigo){}
+	
+	public void Descontrole(Personagem inimigo){}
+	public void AtaqueBrutal(Personagem inimigo){}
+	public void Violencia(Personagem inimigo){}
 
 }

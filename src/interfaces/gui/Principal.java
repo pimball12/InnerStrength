@@ -23,6 +23,7 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
+import utils.MagiasUtils;
 import utils.PrincipalUtils;
 
 public class Principal {
@@ -36,8 +37,6 @@ public class Principal {
 	private JScrollPane scrollPaneTime2Per2;
 	private JTable InfoTime2Per1;
 	private JTable InfoTime2Per2;
-	private Comecar comecar = new Comecar();
-	private Magias magias = new Magias();
 	private JLabel FotoTime1Per1;
 	private JLabel FotoTime1Per2;
 	private JLabel FotoTime2Per1;
@@ -54,6 +53,8 @@ public class Principal {
 	private	JRadioButton radioTime1Per2;
 	private	JRadioButton radioTime2Per1;
 	private	JRadioButton radioTime2Per2;
+	private Comecar comecar = new Comecar();
+	private Magias magias;
 	
 	public JRadioButton getRadioTime1Per1() {
 		return radioTime1Per1;
@@ -88,7 +89,6 @@ public class Principal {
 			public void run() {
 				try {
 					Principal window = new Principal();
-					window.magias.setPrincipal(window);
 					window.frmInnerStrenght.setVisible(true);
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 				} catch (Exception e) {
@@ -217,19 +217,22 @@ public class Principal {
 			RadioTime2.add(radioTime2Per2);
 		
 		btnAtacar = new JButton("Atacar");
+			Rodada.setRadios(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
 			btnAtacar.setEnabled(false);
 			btnAtacar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					Atacar(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
+					Atacar();
 				}
 			});
 			btnAtacar.setBounds(305, 11, 123, 76);
 			frmInnerStrenght.getContentPane().add(btnAtacar);
 		
 		btnMagia = new JButton("Lan\u00E7ar Magia");
+			Rodada.setRadios(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
 			btnMagia.setEnabled(false);
 			btnMagia.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					Rodada.setRadios(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
 					mostrarMagias();
 				}
 			});
@@ -272,13 +275,13 @@ public class Principal {
 			frmInnerStrenght.getContentPane().add(scrollPane);
 			
 		Ocorrencias = new JTextPane();
-		scrollPane.setViewportView(Ocorrencias);
-		Ocorrencias.setEditable(false);
+			scrollPane.setViewportView(Ocorrencias);
+			Ocorrencias.setEditable(false);
 		
 		Informacoes = new JTextPane();
-		Informacoes.setEditable(false);
-		Informacoes.setBounds(305, 176, 123, 154);
-		frmInnerStrenght.getContentPane().add(Informacoes);
+			Informacoes.setEditable(false);
+			Informacoes.setBounds(305, 176, 123, 154);
+			frmInnerStrenght.getContentPane().add(Informacoes);
 		
 		comecar.addWindowListener(new WindowAdapter() {
 			@Override
@@ -300,16 +303,39 @@ public class Principal {
 	}
 
 	private void mostrarComecar()	{
+		comecar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		comecar.setVisible(true);
 	}
 	
 	private void mostrarMagias()	{
+		magias = new Magias();
 		magias.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		magias.setVisible(true);
+		magias.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				if(magias.getComboBox().getSelectedItem() != null)	{
+					LancarMagia();
+				}
+			}
+		});
 	}
 	
-	private void Atacar(JRadioButton radioTime1Per1, JRadioButton radioTime1Per2, JRadioButton radioTime2Per1, JRadioButton radioTime2Per2)	{
-		Rodada.Atacar(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
+	void LancarMagia()	{
+		Rodada.executaMagias(magias.comboBox);
+		PrincipalUtils.AdicionaInformacoes(Rodada.getProtagonista1(),Rodada.getProtagonista2(),Rodada.getAntagonista1(), Rodada.getAntagonista2(),
+				   InfoTime1Per1,InfoTime2Per1,InfoTime1Per2,InfoTime2Per2);
+		Rodada.ChecaRadio(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
+		boolean resultado = Rodada.PassaRodada();
+		Ocorrencias.setText(Mensagens.getOcorrencias());
+		Informacoes.setText(Mensagens.getInformacoes());
+		if (resultado == true)	{
+			ParaJogo();
+		}
+	}
+	
+	private void Atacar()	{
+		Rodada.Atacar();
 		PrincipalUtils.AdicionaInformacoes(Rodada.getProtagonista1(),Rodada.getProtagonista2(),Rodada.getAntagonista1(), Rodada.getAntagonista2(),
 					   InfoTime1Per1,InfoTime2Per1,InfoTime1Per2,InfoTime2Per2);
 		Rodada.ChecaRadio(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
@@ -321,10 +347,13 @@ public class Principal {
 		}
 	}
 	
+	
 	private void LiberaBotoes()	{
 		radioTime1Per1.setEnabled(true);
+		radioTime1Per1.setSelected(true);
 		radioTime1Per2.setEnabled(true);
 		radioTime2Per1.setEnabled(true);
+		radioTime2Per1.setSelected(true);
 		radioTime2Per2.setEnabled(true);
 		btnAtacar.setEnabled(true);
 		btnMagia.setEnabled(true);
@@ -342,11 +371,15 @@ public class Principal {
 		btnMagia.setEnabled(false);
 		btnPararLuta.setEnabled(false);
 		btnComecar.setEnabled(true);
+		Rodada.setProtagonista1(null);
+		Rodada.setProtagonista2(null);
+		Rodada.setAntagonista1(null);
+		Rodada.setAntagonista2(null);
 		Informacoes.setText(Mensagens.getInformacoes());
 		Ocorrencias.setText(Mensagens.getOcorrencias());
 	}
 	
-	private void ParaJogo()	{
+	void ParaJogo()	{
 		BloqueaBotoes();
 		FotoTime1Per1.setIcon(null);
 		FotoTime1Per2.setIcon(null);
@@ -358,4 +391,5 @@ public class Principal {
 		PrincipalUtils.LimpaTabela(InfoTime2Per2);
 		Mensagens.setInformacoes(""); Informacoes.setText("");
 	}
+	
 }

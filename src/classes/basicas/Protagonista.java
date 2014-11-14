@@ -2,7 +2,7 @@ package classes.basicas;
 
 import javax.swing.JOptionPane;
 
-public class Protagonista extends Personagem {
+public abstract class Protagonista extends Personagem {
 
 	public void DefinicaoInicial1() {
 		
