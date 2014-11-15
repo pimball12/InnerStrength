@@ -30,7 +30,7 @@ public class MortoVivo extends Antagonista {
 	public void Ebola(Personagem inimigo)	{
 		if (Chance.UmEm(3))	{
 			inimigo.setVidaAtual(inimigo.getVidaAtual()/2);
-			EnergiaAtual -= 40;
 		}
+		EnergiaAtual -= 40;
 	}
 }

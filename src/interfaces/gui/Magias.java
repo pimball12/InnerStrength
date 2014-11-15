@@ -13,11 +13,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 import utils.MagiasUtils;
+import javax.swing.JScrollPane;
 
 public class Magias extends JFrame {
 	
 	List<String> listaPoderes = MagiasUtils.retornaMagias();
 	JComboBox<String> comboBox;
+	JTextPane textPane;
 
 	public JComboBox<String> getComboBox() {
 		return comboBox;
@@ -51,12 +53,20 @@ public class Magias extends JFrame {
 			btnCancelar.setBounds(132, 108, 108, 43);
 			getContentPane().add(btnCancelar);
 		
-		JTextPane textPane = new JTextPane();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 42, 230, 56);
+		getContentPane().add(scrollPane);
+		
+		textPane = new JTextPane();
+		scrollPane.setViewportView(textPane);
 			textPane.setEditable(false);
-			textPane.setBounds(10, 42, 230, 56);
-			getContentPane().add(textPane);
 			
 		comboBox = new JComboBox(listaPoderes.toArray());
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MagiasUtils.preencheTexto((String)comboBox.getSelectedItem(), textPane);
+			}
+		});
 			comboBox.setSelectedItem(null);
 			comboBox.setBounds(10, 11, 230, 20);
 			getContentPane().add(comboBox);

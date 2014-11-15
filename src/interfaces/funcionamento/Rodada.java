@@ -193,8 +193,8 @@ public class Rodada extends Principal	{
 		Personagem parceiroinimigo = SelecionaPersonagem("outro", false);
 		Double VidaInicial = inimigo.getVidaAtual();
 		MagiasUtils.executaMagias((String)comboBox.getSelectedItem(),personagem,parceiro,inimigo,parceiroinimigo);
-		Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" atacou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
-		if (VidaInicial == inimigo.getVidaAtual())	{ Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" errou!");}
+		Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" lançou uma magia sobre o "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		if (VidaInicial == inimigo.getVidaAtual())	{ Mensagens.incrementaOcorrencias("A vida de "+inimigo.getClasse()+" do time "+ inimigo.getEquipe()+ " não foi alterada.");}
 		if (inimigo.getVidaAtual() <= 0)	{
 			personagem.Evolui(inimigo.getNivel());
 			Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" derrotou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());

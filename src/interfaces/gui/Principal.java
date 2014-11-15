@@ -23,7 +23,6 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.UIManager;
 
-import utils.MagiasUtils;
 import utils.PrincipalUtils;
 
 public class Principal {
@@ -375,6 +374,7 @@ public class Principal {
 		Rodada.setProtagonista2(null);
 		Rodada.setAntagonista1(null);
 		Rodada.setAntagonista2(null);
+		Rodada.setRodadaAtual(0);
 		Informacoes.setText(Mensagens.getInformacoes());
 		Ocorrencias.setText(Mensagens.getOcorrencias());
 	}
