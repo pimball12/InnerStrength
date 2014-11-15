@@ -13,14 +13,17 @@ public class Acesso {
 	}
 	
 	public static Connection conectar()	{
+		String path = null;
 		try {
 			Class.forName("org.firebirdsql.jdbc.FBDriver");
-			String path = Acesso.class.getResource("/data/DATA.FDB").toString();
+			path = Acesso.class.getResource("/data/DATA.FDB").toString();
 			path = path.substring(6).replace("/", "\\\\").replace("%20"," ");
+			//path = path.substring(10).replace("/", "\\\\").replace("%20"," ").replace("teste.jar!", "data");
 			conexao = DriverManager.getConnection(	"jdbc:firebirdsql:localhost/3050:"+path+"?encoding=UTF8",
 													"SYSDBA","masterkey");
 		} catch (SQLException e) {
 			System.out.println("Não foi possível conectar ao banco de dados: ");
+			System.out.println(path);
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			System.out.println("Não foi possível conectar ao driver");

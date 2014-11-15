@@ -1,12 +1,5 @@
 package interfaces.console;
 
-import java.util.List;
-
-import utils.Chance;
-import classes.antagonistas.Demonio;
-import classes.protagonistas.Atirador;
-import classes.protagonistas.Guerreiro;
-import controladores.PersonagemControlador;
 
 
 public class Teste {
