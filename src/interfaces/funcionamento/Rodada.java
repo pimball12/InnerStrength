@@ -177,8 +177,12 @@ public class Rodada extends Principal	{
 		Personagem personagem = SelecionaPersonagem("atual", true);
 		Personagem inimigo = SelecionaPersonagem("outro", true);
 		Double VidaInicial = inimigo.getVidaAtual();
-		personagem.AtacaPersonagem(inimigo);
-		Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" atacou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		if (personagem.getEnergiaAtual() >= 5)	{
+			personagem.AtacaPersonagem(inimigo);
+			Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" atacou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		} else {
+			JOptionPane.showMessageDialog(null, "Você não tem energia suficiente para atacar! Essa rodada será pulada.");
+		}
 		if (VidaInicial == inimigo.getVidaAtual())	{ Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" errou!");}
 		if (inimigo.getVidaAtual() <= 0)	{
 			personagem.Evolui(inimigo.getNivel());

@@ -16,6 +16,7 @@ public class Conjurador extends Protagonista{
 		ResistenciaNormal -= 4;
 		ResistenciaMagia += 4;
 		Energia += 25;
+		EnergiaAtual = Energia;
 	}
 	
 	public void BolaDeFogo(Personagem inimigo)	{
