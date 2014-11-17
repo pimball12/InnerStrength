@@ -51,7 +51,7 @@ public abstract class Personagem{
 				inimigo.setVidaAtual(inimigo.getVidaAtual()-ataque);
 			}
 		}
-		EnergiaAtual -= 5;
+		EnergiaAtual -= 2;
 	}
 	
 	public void AtaqueModificado(Personagem inimigo)	{
