@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import utils.ComecarUtils;
 import controladores.PersonagemControlador;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class Comecar extends JFrame {
@@ -25,6 +26,7 @@ public class Comecar extends JFrame {
 	private JPanel contentPane;
 	private JTable tableTime1;
 	private JTable tableTime2;
+	private JCheckBox chckbxJogarContra;
 	List<String> listaTimes = PersonagemControlador.ListaColunaDistinta("EQUIPE");
 	private CriarNovoTime criarNovoTime = new CriarNovoTime();
 	
@@ -91,6 +93,7 @@ public class Comecar extends JFrame {
 		btnComecarLuta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (ComecarUtils.DefinirTimes((String)comboBoxTime1.getSelectedItem(), (String)comboBoxTime2.getSelectedItem()))	{
+					ComecarUtils.DefinirOponente(chckbxJogarContra.isSelected());
 					dispose();
 				}
 			}
@@ -119,15 +122,15 @@ public class Comecar extends JFrame {
 			contentPane.add(btnCancelar);
 		
 		JLabel lblTime1 = new JLabel("Time 1:");
-			lblTime1.setBounds(10, 118, 46, 14);
+			lblTime1.setBounds(10, 144, 46, 14);
 			contentPane.add(lblTime1);
 		
 		JLabel lblTime2 = new JLabel("Time 2:");
-			lblTime2.setBounds(223, 118, 46, 14);
+			lblTime2.setBounds(223, 144, 46, 14);
 			contentPane.add(lblTime2);
 		
 		JScrollPane scrollPaneTime1 = new JScrollPane();
-			scrollPaneTime1.setBounds(10, 143, 203, 108);
+			scrollPaneTime1.setBounds(10, 169, 203, 82);
 			contentPane.add(scrollPaneTime1);
 		
 			tableTime1 = new JTable();
@@ -135,12 +138,16 @@ public class Comecar extends JFrame {
 				scrollPaneTime1.setViewportView(tableTime1);
 		
 		JScrollPane scrollPaneTime2 = new JScrollPane();
-			scrollPaneTime2.setBounds(223, 143, 201, 108);
+			scrollPaneTime2.setBounds(223, 169, 201, 82);
 			contentPane.add(scrollPaneTime2);
 			
 			tableTime2 = new JTable();
 			lblTime2.setLabelFor(tableTime2);
 				scrollPaneTime2.setViewportView(tableTime2);
+				
+		chckbxJogarContra = new JCheckBox("Jogar contra o computador");
+			chckbxJogarContra.setBounds(10, 114, 203, 23);
+			contentPane.add(chckbxJogarContra);
 				
 		criarNovoTime.addWindowListener(new WindowAdapter() {
 			@Override
@@ -166,5 +173,4 @@ public class Comecar extends JFrame {
 		comboBoxTime1.setSelectedItem(null);
 		comboBoxTime2.setSelectedItem(null);
 	}
-	
 }

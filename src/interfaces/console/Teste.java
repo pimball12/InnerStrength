@@ -1,5 +1,10 @@
 package interfaces.console;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import utils.Chance;
+
 
 
 public class Teste {
@@ -40,8 +45,11 @@ public class Teste {
 //		System.out.println(demonio1 + "\r\n" + guerreiro+ "\r\n");
 //		atirador.TiroCerteiro(demonio1);
 //		System.out.println(demonio1 + "\r\n" + guerreiro+ "\r\n");
-		float f = 3.123f;
-		System.out.println((int)f);
+//		float f = 3.123f;
+//		System.out.println((int)f);
+		List listaDeMagias = new ArrayList<String>(){{add("Descontrole");add("Ataque Brutal");add("Violencia");add("Curar");}};
+		int num = listaDeMagias.size();
+		System.out.println(Chance.numeroAleatorio(num));
 	}
 	
 }

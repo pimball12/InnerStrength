@@ -1,5 +1,6 @@
 package interfaces.gui;
 
+import interfaces.funcionamento.Computador;
 import interfaces.funcionamento.Mensagens;
 import interfaces.funcionamento.Rodada;
 
@@ -221,6 +222,7 @@ public class Principal {
 			btnAtacar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					Atacar();
+					rodadaComputador();
 				}
 			});
 			btnAtacar.setBounds(305, 11, 123, 76);
@@ -315,6 +317,7 @@ public class Principal {
 			public void windowClosed(WindowEvent arg0) {
 				if(magias.getComboBox().getSelectedItem() != null)	{
 					LancarMagia();
+					rodadaComputador();
 				}
 			}
 		});
@@ -379,7 +382,7 @@ public class Principal {
 		Ocorrencias.setText(Mensagens.getOcorrencias());
 	}
 	
-	void ParaJogo()	{
+	private void ParaJogo()	{
 		BloqueaBotoes();
 		FotoTime1Per1.setIcon(null);
 		FotoTime1Per2.setIcon(null);
@@ -390,6 +393,27 @@ public class Principal {
 		PrincipalUtils.LimpaTabela(InfoTime2Per1);
 		PrincipalUtils.LimpaTabela(InfoTime2Per2);
 		Mensagens.setInformacoes(""); Informacoes.setText("");
+	}
+	
+	public void rodadaComputador() {
+		if (Rodada.getComputador() && Rodada.getAntagonista1() != null && Rodada.getAntagonista2() != null && Rodada.getProtagonista1() != null & Rodada.getProtagonista2() != null)	{
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			Computador.acao(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
+			PrincipalUtils.AdicionaInformacoes(	Rodada.getProtagonista1(),Rodada.getProtagonista2(),Rodada.getAntagonista1(), Rodada.getAntagonista2(),
+					   							InfoTime1Per1,InfoTime2Per1,InfoTime1Per2,InfoTime2Per2);
+			Rodada.ChecaRadio(radioTime1Per1, radioTime1Per2, radioTime2Per1, radioTime2Per2);
+			boolean resultado = Rodada.PassaRodada();
+			Ocorrencias.setText(Mensagens.getOcorrencias());
+			Informacoes.setText(Mensagens.getInformacoes());
+
+			if (resultado == true)	{
+				ParaJogo();
+			}
+		}
 	}
 	
 }

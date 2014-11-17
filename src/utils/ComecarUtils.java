@@ -66,4 +66,12 @@ public class ComecarUtils {
 		}
 	}
 	
+	public static void DefinirOponente(boolean checkbox)	{
+		if (checkbox)	{
+			Rodada.setComputador(true);
+		} else {
+			Rodada.setComputador(false);
+		}
+	}
+	
 }

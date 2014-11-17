@@ -2,6 +2,8 @@ package classes.basicas;
 
 import javax.swing.JOptionPane;
 
+import utils.Chance;
+
 public abstract class Protagonista extends Personagem {
 
 	public void DefinicaoInicial1() {
@@ -29,4 +31,24 @@ public abstract class Protagonista extends Personagem {
 		}
 	}
 	
+	public void CuraPersonagemAleatorio(Personagem personagem)	{
+		boolean opcao = Chance.BoleanoAleatorio();
+		if (opcao == true)	{
+			if (personagem.getVidaAtual() < personagem.getVida())	{
+				personagem.setVidaAtual(personagem.getVidaAtual() + personagem.getVidaAtual() * 0.3);
+				EnergiaAtual -= 30;
+				if (personagem.getVidaAtual() > personagem.getVida())	{
+					personagem.setVidaAtual(personagem.getVida());
+				}
+			}
+		} else if (opcao == false) {
+			if (VidaAtual < Vida)	{
+				VidaAtual = VidaAtual + VidaAtual*0.3;
+				EnergiaAtual -= 30;
+				if (VidaAtual > Vida)	{
+					VidaAtual = Vida;
+				}
+			}
+		}
+	}
 }

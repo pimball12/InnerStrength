@@ -19,6 +19,7 @@ public class Rodada extends Principal	{
 	private static Personagem Protagonista2;
 	private static Personagem Antagonista2;
 	private static int rodadaAtual = 0;
+	private static boolean computador = false;
 	private static Personagem SelecionadoJogando;
 	private static Personagem SelecionadoEsperando;
 	private static JRadioButton Time1Per1 = new JRadioButton();
@@ -88,6 +89,14 @@ public class Rodada extends Principal	{
 		rodadaAtual = RodadaAtual;
 	}
 	
+	public static boolean getComputador() {
+		return computador;
+	}
+	
+	public static void setComputador(boolean computador) {
+		Rodada.computador = computador;
+	}
+
 	public static Personagem SelecionadoTime(int time, boolean selecionado)	{
 		if (time == 1)	{
 			if (Time1Per1.isSelected())	{
@@ -129,10 +138,10 @@ public class Rodada extends Principal	{
 			(Protagonista2.getVidaAtual() > 0 || Antagonista2.getVidaAtual() > 0))	{
 			rodadaAtual += 1;
 			if (rodadaAtual %2 == 0)	{
-				Mensagens.setInformacoes("Rodada: "+rodadaAtual+"\r\nVez de: "+Protagonista1.getEquipe());
+				Mensagens.setInformacoes("Rodada: "+rodadaAtual+"\r\nVez do Time 1: "+Protagonista1.getEquipe());
 				IncrementaEnergias(Protagonista2, Antagonista2);
 			} else if (rodadaAtual %2 != 0) {
-				Mensagens.setInformacoes("Rodada: "+rodadaAtual+"\r\nVez de: "+Protagonista2.getEquipe());
+				Mensagens.setInformacoes("Rodada: "+rodadaAtual+"\r\nVez do Time 2: "+Protagonista2.getEquipe());
 				IncrementaEnergias(Protagonista1, Antagonista1);
 			}
 			return false;
@@ -197,6 +206,21 @@ public class Rodada extends Principal	{
 		Personagem parceiroinimigo = SelecionaPersonagem("outro", false);
 		Double VidaInicial = inimigo.getVidaAtual();
 		MagiasUtils.executaMagias((String)comboBox.getSelectedItem(),personagem,parceiro,inimigo,parceiroinimigo);
+		Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" lançou uma magia sobre o "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		if (VidaInicial == inimigo.getVidaAtual())	{ Mensagens.incrementaOcorrencias("A vida de "+inimigo.getClasse()+" do time "+ inimigo.getEquipe()+ " não foi alterada.");}
+		if (inimigo.getVidaAtual() <= 0)	{
+			personagem.Evolui(inimigo.getNivel());
+			Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" derrotou "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
+		}
+	}
+	
+	public static void executaMagias(String magia)	{
+		Personagem personagem = SelecionaPersonagem("atual", true);
+		Personagem parceiro = SelecionaPersonagem("atual", false);
+		Personagem inimigo = SelecionaPersonagem("outro", true);
+		Personagem parceiroinimigo = SelecionaPersonagem("outro", false);
+		Double VidaInicial = inimigo.getVidaAtual();
+		MagiasUtils.executaMagias(magia,personagem,parceiro,inimigo,parceiroinimigo);
 		Mensagens.incrementaOcorrencias(personagem.getClasse()+" do time "+personagem.getEquipe()+" lançou uma magia sobre o "+inimigo.getClasse()+" do time "+inimigo.getEquipe());
 		if (VidaInicial == inimigo.getVidaAtual())	{ Mensagens.incrementaOcorrencias("A vida de "+inimigo.getClasse()+" do time "+ inimigo.getEquipe()+ " não foi alterada.");}
 		if (inimigo.getVidaAtual() <= 0)	{

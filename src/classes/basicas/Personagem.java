@@ -259,4 +259,6 @@ public abstract class Personagem{
 	public void AtaqueBrutal(Personagem inimigo){}
 	public void Violencia(Personagem inimigo){}
 
+	public void CuraPersonagemAleatorio(Personagem personagem){}
+	public void DrenarForcasAleatorio(Personagem inimigo, Personagem parceiro){}
 }

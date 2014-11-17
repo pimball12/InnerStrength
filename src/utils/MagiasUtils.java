@@ -76,7 +76,11 @@ public class MagiasUtils {
 			personagem.GarrasAmaldicoadas(inimigo);
 			break;
 		case "Drenar Forças":
-			personagem.DrenarForcas(inimigo,parceiro);
+			if (Rodada.getComputador() == false)	{
+				personagem.DrenarForcas(inimigo,parceiro);
+			} else {
+				personagem.DrenarForcasAleatorio(inimigo, parceiro);
+			}
 			break;
 		case "Canibalismo":
 			personagem.Canibalismo(inimigo);
@@ -87,11 +91,15 @@ public class MagiasUtils {
 		case "Tiro ao Alto":
 			personagem.TiroProAlto(inimigo,parceiroinimigo);
 			break;
-		case "Rugido de Guerra":
+		case "Grito de Guerra":
 			personagem.RugidoDeGuerra(parceiro);
 			break;
 		case "Curar":
-			personagem.CuraPersonagem(parceiro);
+			if (Rodada.getComputador() == false)	{
+				personagem.CuraPersonagem(parceiro);
+			} else {
+				personagem.CuraPersonagemAleatorio(parceiro);
+			}
 			break;
 		default:
 			break;
@@ -202,7 +210,7 @@ public class MagiasUtils {
 				texto = "Dá um tiro poderoso pro alto acertanto aleatóriamente um dos personagens inimigos. \r\n"
 						+ "Gasta: 40 de energia.";
 				break;
-			case "Rugido de Guerra":
+			case "Grito de Guerra":
 				texto = "Tem 33% de chance de recuperar 1/3 da energia de seu parceiro. \r\n"
 						+ "Gasta: 40 de energia se der errado.";
 				break;

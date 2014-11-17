@@ -29,5 +29,9 @@ public class Chance {
 		boolean resultado = random.nextBoolean();
 		return resultado;
 	}
-
+	
+	public static int numeroAleatorio(int numero)	{
+		int resultado = random.nextInt(numero);
+		return resultado;
+	}
 }

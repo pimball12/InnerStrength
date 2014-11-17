@@ -43,5 +43,28 @@ public class Demonio extends Antagonista {
 			EnergiaAtual -= 40;
 		}
 	}
+	
+	public void DrenarForcasAleatorio(Personagem inimigo, Personagem parceiro)	{
+		double ataque = DanoMagia - inimigo.getResistenciaMagia();
+		double antes = inimigo.getVidaAtual();
+		boolean opcao = Chance.BoleanoAleatorio();
+		
+		if (Chance.UmEm(3))	{
+			AtaqueModificado(inimigo, ataque);
+			if (inimigo.getVidaAtual() < antes)	{
+				if (opcao == true)	{
+					parceiro.setEnergiaAtual((int) (parceiro.getEnergiaAtual()+ataque));
+					if (parceiro.getEnergiaAtual() > parceiro.getEnergia())	{parceiro.setEnergiaAtual(parceiro.getEnergia());}
+				} else if (opcao == false) {
+					EnergiaAtual += ataque; 
+					if (EnergiaAtual > Energia)	{EnergiaAtual = Energia;}
+				}
+			} else {
+				EnergiaAtual -= 40;
+			}
+		} else {
+			EnergiaAtual -= 40;
+		}
+	}
 
 }
