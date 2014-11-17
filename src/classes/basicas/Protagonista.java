@@ -14,7 +14,7 @@ public abstract class Protagonista extends Personagem {
 		int opcao = JOptionPane.showConfirmDialog(null, "Deseja curar ao outro personagem? Caso contrário, você irá curar a sí mesmo.", "Curar", JOptionPane.YES_NO_CANCEL_OPTION);
 		if (opcao == JOptionPane.YES_OPTION)	{
 			if (personagem.getVidaAtual() < personagem.getVida())	{
-				personagem.setVidaAtual(personagem.getVidaAtual() + personagem.getVidaAtual() * 0.3);
+				personagem.setVidaAtual(personagem.getVidaAtual() + personagem.getVida() * 0.3);
 				EnergiaAtual -= 30;
 				if (personagem.getVidaAtual() > personagem.getVida())	{
 					personagem.setVidaAtual(personagem.getVida());
@@ -22,7 +22,7 @@ public abstract class Protagonista extends Personagem {
 			}
 		} else if (opcao == JOptionPane.NO_OPTION) {
 			if (VidaAtual < Vida)	{
-				VidaAtual = VidaAtual + VidaAtual*0.3;
+				VidaAtual = VidaAtual + Vida*0.3;
 				EnergiaAtual -= 30;
 				if (VidaAtual > Vida)	{
 					VidaAtual = Vida;
@@ -35,7 +35,7 @@ public abstract class Protagonista extends Personagem {
 		boolean opcao = Chance.BoleanoAleatorio();
 		if (opcao == true)	{
 			if (personagem.getVidaAtual() < personagem.getVida())	{
-				personagem.setVidaAtual(personagem.getVidaAtual() + personagem.getVidaAtual() * 0.3);
+				personagem.setVidaAtual(personagem.getVidaAtual() + personagem.getVida() * 0.3);
 				EnergiaAtual -= 30;
 				if (personagem.getVidaAtual() > personagem.getVida())	{
 					personagem.setVidaAtual(personagem.getVida());
@@ -43,7 +43,7 @@ public abstract class Protagonista extends Personagem {
 			}
 		} else if (opcao == false) {
 			if (VidaAtual < Vida)	{
-				VidaAtual = VidaAtual + VidaAtual*0.3;
+				VidaAtual = VidaAtual + Vida*0.3;
 				EnergiaAtual -= 30;
 				if (VidaAtual > Vida)	{
 					VidaAtual = Vida;
