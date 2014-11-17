@@ -8,14 +8,14 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 
 import utils.MagiasUtils;
-import javax.swing.JScrollPane;
 
-public class Magias extends JFrame {
+public class Magias extends JDialog {
 	
 	List<String> listaPoderes = MagiasUtils.retornaMagias();
 	JComboBox<String> comboBox;
@@ -29,7 +29,8 @@ public class Magias extends JFrame {
 	 * Create the dialog.
 	 */
 	
-	public Magias() {		
+	public Magias() {
+		setModal(true);		
 		
 		setBounds(100, 100, 266, 200);
 		getContentPane().setLayout(null);

@@ -15,16 +15,16 @@ public class ComputadorUtils {
 		if (personagem != null)	{
 			switch (personagem.getClasse()) {
 			case "Guerreiro":
-				listaDeMagias = new ArrayList<String>(){{add("Descontrole");add("Ataque Brutal");add("Violencia");add("Curar");}};
+				listaDeMagias = new ArrayList<String>(){{add("Descontrole");add("Ataque Brutal");add("Violencia");add("Curar Aleatorio");}};
 				break;
 			case "Conjurador":
-				listaDeMagias = new ArrayList<String>(){{add("Bola de Fogo");add("Armageddon");add("Trovao");add("Curar");}};
+				listaDeMagias = new ArrayList<String>(){{add("Bola de Fogo");add("Armageddon");add("Trovao");add("Curar Aleatorio");}};
 				break;
 			case "Atirador":
-				listaDeMagias = new ArrayList<String>(){{add("Chuva de Granadas");add("Tiro Certeiro");add("Bala Conjurada");add("Curar");}};
+				listaDeMagias = new ArrayList<String>(){{add("Chuva de Granadas");add("Tiro Certeiro");add("Bala Conjurada");add("Curar Aleatorio");}};
 				break;
 			case "Demonio":
-				listaDeMagias = new ArrayList<String>(){{add("Garras Amaldiçoadas");add("Drenar Forças");}};
+				listaDeMagias = new ArrayList<String>(){{add("Garras Amaldiçoadas");add("Drenar Forças Aleatorio");}};
 				break;
 			case "MortoVivo":
 				listaDeMagias = new ArrayList<String>(){{add("Canibalismo");add("Ebola");}};

@@ -76,11 +76,10 @@ public class MagiasUtils {
 			personagem.GarrasAmaldicoadas(inimigo);
 			break;
 		case "Drenar Forças":
-			if (Rodada.getComputador() == false)	{
-				personagem.DrenarForcas(inimigo,parceiro);
-			} else {
-				personagem.DrenarForcasAleatorio(inimigo, parceiro);
-			}
+			personagem.DrenarForcas(inimigo,parceiro);
+			break;
+		case "Drenar Forças Aleatorio":
+			personagem.DrenarForcasAleatorio(inimigo, parceiro);
 			break;
 		case "Canibalismo":
 			personagem.Canibalismo(inimigo);
@@ -95,11 +94,10 @@ public class MagiasUtils {
 			personagem.RugidoDeGuerra(parceiro);
 			break;
 		case "Curar":
-			if (Rodada.getComputador() == false)	{
-				personagem.CuraPersonagem(parceiro);
-			} else {
-				personagem.CuraPersonagemAleatorio(parceiro);
-			}
+			personagem.CuraPersonagem(parceiro);
+			break;
+		case "Curar Aleatorio":
+			personagem.CuraPersonagemAleatorio(parceiro);
 			break;
 		default:
 			break;
@@ -130,6 +128,8 @@ public class MagiasUtils {
 			if (personagem.getEnergiaAtual() >= 40) { return true; } else { return false; }
 		case "Drenar Forças":
 			if (personagem.getEnergiaAtual() >= 40) { return true; } else { return false; }
+		case "Drenar Forças Aleatorio":
+			if (personagem.getEnergiaAtual() >= 40) { return true; } else { return false; }
 		case "Canibalismo":
 			if (personagem.getEnergiaAtual() >= 40) { return true; } else { return false; }
 		case "Ebola":
@@ -139,6 +139,8 @@ public class MagiasUtils {
 		case "Grito de Guerra":
 			if (personagem.getEnergiaAtual() >= 40) { return true; } else { return false; }
 		case "Curar":
+			if (personagem.getEnergiaAtual() >= 40) { return true; } else { return false; }
+		case "Curar Aleatorio":
 			if (personagem.getEnergiaAtual() >= 40) { return true; } else { return false; }
 		default:
 			break;

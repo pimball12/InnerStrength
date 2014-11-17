@@ -113,7 +113,7 @@ public class Principal {
 			frmInnerStrenght.setTitle("Inner Strength");
 			frmInnerStrenght.getContentPane().setBackground(new Color(253, 245, 230));
 			frmInnerStrenght.getContentPane().setForeground(Color.LIGHT_GRAY);
-			frmInnerStrenght.setBounds(100, 100, 750, 500);
+			frmInnerStrenght.setBounds(100, 100, 750, 555);
 			frmInnerStrenght.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frmInnerStrenght.getContentPane().setLayout(null);
 		
@@ -246,7 +246,7 @@ public class Principal {
 					mostrarComecar();
 				}
 			});
-			btnComecar.setBounds(10, 403, 238, 48);
+			btnComecar.setBounds(10, 458, 238, 48);
 			frmInnerStrenght.getContentPane().add(btnComecar);
 		
 		btnPararLuta = new JButton("Parar Luta");
@@ -259,7 +259,7 @@ public class Principal {
 					}
 				}
 			});
-			btnPararLuta.setBounds(258, 403, 225, 48);
+			btnPararLuta.setBounds(258, 458, 225, 48);
 			frmInnerStrenght.getContentPane().add(btnPararLuta);
 			
 		btnSair = new JButton("Sair");
@@ -268,11 +268,11 @@ public class Principal {
 					System.exit(0);
 				}
 			});
-			btnSair.setBounds(493, 403, 231, 48);
+			btnSair.setBounds(493, 458, 231, 48);
 			frmInnerStrenght.getContentPane().add(btnSair);
 		
 		scrollPane = new JScrollPane();
-			scrollPane.setBounds(10, 341, 714, 48);
+			scrollPane.setBounds(10, 341, 714, 106);
 			frmInnerStrenght.getContentPane().add(scrollPane);
 			
 		Ocorrencias = new JTextPane();
@@ -312,15 +312,10 @@ public class Principal {
 		magias = new Magias();
 		magias.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		magias.setVisible(true);
-		magias.addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				if(magias.getComboBox().getSelectedItem() != null)	{
-					LancarMagia();
-					rodadaComputador();
-				}
-			}
-		});
+		if(magias.getComboBox().getSelectedItem() != null)	{
+			LancarMagia();
+			rodadaComputador();
+		}
 	}
 	
 	void LancarMagia()	{
